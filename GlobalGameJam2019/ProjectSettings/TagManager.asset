@@ -44,6 +44,9 @@ TagManager:
   - name: Ghost
     uniqueID: 2710678519
     locked: 0
+  - name: Items
+    uniqueID: 276786251
+    locked: 0
   - name: Player
     uniqueID: 3800276863
     locked: 0
