@@ -10,6 +10,7 @@ namespace Jam
         {
             MAIN_MENU, 
             RUNNING,
+            READING, 
             COMPLETE
         }
 
@@ -39,6 +40,11 @@ namespace Jam
         {
             Debug.Log("Game Reset"); 
             // TODO, Fill me in based on the game!
+        }
+
+        public void SetReading()
+        {
+            currentState = GAME_STATE.READING; 
         }
 
         public void Quit()

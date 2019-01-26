@@ -284,6 +284,11 @@ namespace Jam
             stoppingShake = true; 
         }
 
-        
+        private void OnMouseDown()
+        {
+            // TODO, handle callbacks
+            Debug.Log("Pressed"); 
+        }
+
     }
 }
