@@ -63,9 +63,9 @@ namespace Jam
             startRot = transform.rotation;
 
             // Testing
-            Shake(SHAKE_AXIS.Z, 5f, 3f, false);
-            Shake(SHAKE_AXIS.X, 11f, 4f, false);
-            Rotate();
+            //Shake(SHAKE_AXIS.Z, 5f, 3f, false);
+            //Shake(SHAKE_AXIS.X, 11f, 4f, false);
+            //Rotate();
         }
 
         // Update is called once per frame
