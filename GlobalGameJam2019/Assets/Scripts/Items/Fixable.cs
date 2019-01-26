@@ -28,7 +28,8 @@ namespace Jam
         {
             if(!isFixed)
                 FixItem(); 
-            base.OnMouseDown(); 
+            base.OnMouseDown();
+            ItemManager.AddFixed(this); 
         }
 
         private void FixItem()

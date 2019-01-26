@@ -14,14 +14,13 @@ namespace Jam
             Z = 8
         }
 
-
-        private string itemName;
-        // public item category
-        public GameObject ItemManager;
+        public ID desiredType; 
+        protected ItemManager ItemManager;
         private bool isMessy;
         public bool IsMessy { get => isMessy; }
         protected bool shouldShake;
         protected bool shouldRotate;
+        protected ItemData data; 
 
 
         protected bool rotateLeft;
@@ -284,5 +283,29 @@ namespace Jam
             Debug.Log(gameObject.name + " Pressed."); 
         }
 
+        public void SetItemManager(ItemManager manager)
+        {
+            ItemManager = manager; 
+        }
+
+        public void SetItemData(ItemData newData)
+        {
+            data = newData; 
+        }
+        
+        public ID GetItemID()
+        {
+            return data.itemID; 
+        }
+
+        public string GetItemBodyText()
+        {
+            return data.itemBody; 
+        }
+
+        public Category GetItemCategory()
+        {
+            return data.itemCategory; 
+        }
     }
 }
