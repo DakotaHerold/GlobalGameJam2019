@@ -38,13 +38,15 @@ namespace Jam {
 
         IEnumerator ScrollTextRoutine(string textBlock)
         {
-            activeTextBlock = textBlock; 
-        
+            bodyTextElement.text = "";
+            activeTextBlock = textBlock;
+
             foreach (char c in activeTextBlock)
             {
                 bodyTextElement.text += c;
                 yield return new WaitForSeconds(characterTypeDuration);
             }
+            itemBody = "";
             
         }
 
@@ -64,6 +66,17 @@ namespace Jam {
         {
             itemName = newName;
             itemNameElement.text = itemName; 
+        }
+
+        public void StartScroll()
+        {
+            activeRoutine = StartCoroutine(ScrollTextRoutine(itemBody)); 
+        }
+
+        public void StopScroll()
+        {
+            if(activeRoutine != null)
+                StopCoroutine(activeRoutine); 
         }
 
 

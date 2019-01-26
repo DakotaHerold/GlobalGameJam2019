@@ -16,11 +16,9 @@ namespace Jam
 
         public ID desiredType; 
         protected ItemManager ItemManager;
-        private bool isMessy;
-        public bool IsMessy { get => isMessy; }
         protected bool shouldShake;
         protected bool shouldRotate;
-        protected ItemData data; 
+        protected ItemData itemData; 
 
 
         protected bool rotateLeft;
@@ -279,33 +277,37 @@ namespace Jam
 
         protected virtual void OnMouseDown()
         {
-            // TODO, handle callbacks
-            Debug.Log(gameObject.name + " Pressed."); 
+            ItemManager.ItemPressed(this); 
         }
 
-        public void SetItemManager(ItemManager manager)
+        public virtual void SetItemManager(ItemManager manager)
         {
             ItemManager = manager; 
         }
 
-        public void SetItemData(ItemData newData)
+        public virtual void SetItemData(ItemData newData)
         {
-            data = newData; 
+            itemData = newData; 
         }
         
         public ID GetItemID()
         {
-            return data.itemID; 
+            return itemData.itemID; 
         }
 
         public string GetItemBodyText()
         {
-            return data.itemBody; 
+            return itemData.itemBody; 
         }
 
         public Category GetItemCategory()
         {
-            return data.itemCategory; 
+            return itemData.itemCategory; 
+        }
+
+        public virtual ItemData GetItemData()
+        {
+            return itemData; 
         }
     }
 }

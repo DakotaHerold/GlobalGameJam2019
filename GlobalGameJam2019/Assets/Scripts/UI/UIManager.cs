@@ -6,17 +6,24 @@ namespace Jam
 {
     public class UIManager : MonoBehaviour
     {
+        [SerializeField]
+        UIItemPanelManager uiPanel; 
+
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
-
+          
         }
 
-        // Update is called once per frame
-        void Update()
+        public void StartPanel(ItemData data)
         {
-
+            uiPanel.StopScroll();
+            uiPanel.SetItemName(data.itemID.ToString());
+            uiPanel.SetItemText(data.itemBody);
+            uiPanel.gameObject.SetActive(true);
+            uiPanel.StartScroll(); 
         }
+        
     }
 }
 

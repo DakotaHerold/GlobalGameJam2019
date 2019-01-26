@@ -91,8 +91,7 @@ namespace Jam
 
         private void Awake()
         {
-            readData = PhraseDataContainer.Load(WrittenDataPath).WrittenData;
-            ConvertReadFormat(readData);
+            ProcessData(); 
 
             // Testing
             //foreach(PhraseData phrase in phrases)
@@ -101,6 +100,12 @@ namespace Jam
             //    Debug.Log(phrase.Category);
             //    Debug.Log(phrase.Text); 
             //}
+        }
+
+        private void ProcessData()
+        {
+            readData = PhraseDataContainer.Load(WrittenDataPath).WrittenData;
+            ConvertReadFormat(readData);
         }
 
         private void ConvertReadFormat(PhraseReadData[] readData)
@@ -124,6 +129,11 @@ namespace Jam
 
         public ItemData GetItemData(ID itemID)
         {
+            if(phrases.Length < 1)
+            {
+                ProcessData(); 
+            }
+
             ItemData data;
             data.itemBody = "";
             data.itemID = ID.Diary;
@@ -132,12 +142,9 @@ namespace Jam
             {
                 if(phrases[iPhrase].ID == itemID)
                 {
-                    data = new ItemData
-                    {
-                        itemID = phrases[iPhrase].ID,
-                        itemBody = phrases[iPhrase].Text,
-                        itemCategory = phrases[iPhrase].Category
-                    };
+                    data.itemID = phrases[iPhrase].ID;
+                    data.itemBody = phrases[iPhrase].Text;
+                    data.itemCategory = phrases[iPhrase].Category;
                     break; 
                 }
             }

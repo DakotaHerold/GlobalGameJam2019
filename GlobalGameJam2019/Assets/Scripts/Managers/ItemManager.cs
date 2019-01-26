@@ -75,6 +75,11 @@ namespace Jam
             }
         }
 
+        public void ItemPressed(Item item)
+        {
+            GameManager.Instance.SetPanelText(item.GetItemData()); 
+        }
+
         public void AddCollectible(Collectible item)
         {
             potentialCollectibles.Remove(item);

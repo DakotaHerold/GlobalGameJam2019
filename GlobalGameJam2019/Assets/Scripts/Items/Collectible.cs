@@ -23,5 +23,20 @@ namespace Jam
             base.OnMouseDown();
             ItemManager.AddCollectible(this); 
         }
+
+        public override void SetItemManager(ItemManager manager)
+        {
+            ItemManager = manager;
+        }
+
+        public override void SetItemData(ItemData newData)
+        {
+            itemData = newData;
+        }
+
+        public override ItemData GetItemData()
+        {
+            return itemData;
+        }
     }
 }

@@ -32,10 +32,31 @@ namespace Jam
             ItemManager.AddFixed(this); 
         }
 
+        public override void SetItemManager(ItemManager manager)
+        {
+            ItemManager = manager;
+        }
+
+        public override void SetItemData(ItemData newData)
+        {
+            itemData = newData;
+        }
+
+        public void Reset()
+        {
+            isFixed = false;
+            transform.rotation = Quaternion.Euler(disorientedEulerRot.x, disorientedEulerRot.y, disorientedEulerRot.z);
+        }
+
         private void FixItem()
         {
             isFixed = true;
             stoppingRotate = true; 
+        }
+
+        public override ItemData GetItemData()
+        {
+            return itemData;
         }
     }
 }

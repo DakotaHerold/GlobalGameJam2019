@@ -17,9 +17,12 @@ namespace Jam
         private GAME_STATE currentState; 
         public GAME_STATE CurrentState { get { return currentState; } }
 
+        private UIManager uiManager; 
+
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
+            uiManager = FindObjectOfType<UIManager>(); 
             currentState = GAME_STATE.MAIN_MENU; 
         }
 
@@ -45,6 +48,15 @@ namespace Jam
         public void SetReading()
         {
             currentState = GAME_STATE.READING; 
+        }
+
+        public void SetPanelText(ItemData data)
+        {
+            currentState = GAME_STATE.READING;
+            if(uiManager != null)
+            {
+                uiManager.StartPanel(data); 
+            }
         }
 
         public void Quit()
