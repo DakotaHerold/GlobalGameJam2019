@@ -9,7 +9,7 @@ namespace Jam
 {
     public struct ItemData
     {
-        public string itemName;
+        public ID itemID;
         public Category itemCategory;
         public string itemBody; 
     }
@@ -21,6 +21,13 @@ namespace Jam
         ThrowOff,
         Intro,
         None
+    }
+
+    [Serializable]
+    public enum ID
+    {
+        Diary,
+        Trunk
     }
 
     [Serializable]
@@ -42,7 +49,7 @@ namespace Jam
     [Serializable]
     public class PhraseData
     {
-        public string Name; 
+        public ID ID; 
         public Category Category;
         public string Text;
     }
@@ -50,7 +57,7 @@ namespace Jam
     [Serializable]
     public class PhraseReadData
     {
-        public string Name; 
+        public string ID; 
         public string Category;
         public string Text;
     }
@@ -73,7 +80,7 @@ namespace Jam
             // Testing
             foreach(PhraseData phrase in phrases)
             {
-                Debug.Log(phrase.Name);
+                Debug.Log(phrase.ID);
                 Debug.Log(phrase.Category);
                 Debug.Log(phrase.Text); 
             }
@@ -88,13 +95,36 @@ namespace Jam
                 Category cat;
                 cat = (Category)Enum.Parse(typeof(Category), data.Category, true);
 
+                ID itemID;
+                itemID = (ID)Enum.Parse(typeof(ID), data.ID, true); 
+
                 phrases[iData] = new PhraseData();
                 phrases[iData].Category = cat;
-                phrases[iData].Name = data.Name; 
+                phrases[iData].ID = itemID; 
                 phrases[iData].Text = data.Text;
             }
         }
 
-        
+        public ItemData GetItemData(ID itemID)
+        {
+            ItemData data;
+            data.itemBody = "";
+            data.itemID = ID.Diary;
+            data.itemCategory = Category.None; 
+            for(int iPhrase = 0; iPhrase < phrases.Length; ++iPhrase)
+            {
+                if(phrases[iPhrase].ID == itemID)
+                {
+                    data = new ItemData
+                    {
+                        itemID = phrases[iPhrase].ID,
+                        itemBody = phrases[iPhrase].Text,
+                        itemCategory = phrases[iPhrase].Category
+                    };
+                    break; 
+                }
+            }
+            return data; 
+        }
     }
 }
