@@ -20,14 +20,31 @@ namespace Jam
         Collectible,
         ThrowOff,
         Intro,
-        None
+        None, 
+        Outro
     }
 
     [Serializable]
     public enum ID
     {
         Diary,
-        Trunk
+        Trunk,
+        Doily,
+        Lockbox,
+        LetterOpened, 
+        LetterUnopened, 
+        Typewriter, 
+        Cellphone, 
+        Dictionary, 
+        GenericBook, 
+        CardboardBox, 
+        Bills, 
+        Computer, 
+        Bottles, 
+        Slippers, 
+        GenericShoes, 
+        Intro, 
+        Outro
     }
 
     [Serializable]
@@ -78,12 +95,12 @@ namespace Jam
             ConvertReadFormat(readData);
 
             // Testing
-            foreach(PhraseData phrase in phrases)
-            {
-                Debug.Log(phrase.ID);
-                Debug.Log(phrase.Category);
-                Debug.Log(phrase.Text); 
-            }
+            //foreach(PhraseData phrase in phrases)
+            //{
+            //    Debug.Log(phrase.ID);
+            //    Debug.Log(phrase.Category);
+            //    Debug.Log(phrase.Text); 
+            //}
         }
 
         private void ConvertReadFormat(PhraseReadData[] readData)

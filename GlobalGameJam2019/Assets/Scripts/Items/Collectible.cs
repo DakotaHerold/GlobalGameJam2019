@@ -19,10 +19,9 @@ namespace Jam
         }
 
         protected override void OnMouseDown()
-        {
-
-            // TODO: Handle item tracking for collectibles 
+        { 
             base.OnMouseDown();
+            ItemManager.AddCollectible(this); 
         }
     }
 }
