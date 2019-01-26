@@ -6,7 +6,6 @@ namespace Jam
 {
     public class Item : MonoBehaviour
     {
-        // TODO: Allow flag
         public enum SHAKE_AXIS
         {
             None = 1,
@@ -21,61 +20,56 @@ namespace Jam
         public GameObject ItemManager;
         private bool isMessy;
         public bool IsMessy { get => isMessy; }
-        private bool shouldShake;
-        private bool shouldRotate;
+        protected bool shouldShake;
+        protected bool shouldRotate;
 
 
-        private bool rotateLeft;
-        private bool rotating;
-        private float duration = .9f;
-        private float currentTime;
-        private float rotationSpeed = 100f;
+        protected bool rotateLeft;
+        protected bool rotating;
+        protected float duration = .9f;
+        protected float currentTime;
+        protected float rotationSpeed = 100f;
 
-        private Vector3 startPos;
-        private Vector3 startScale;
-        private Quaternion startRot; 
+        protected Vector3 startPos;
+        protected Vector3 startScale;
+        protected Quaternion startRot;
 
         // Shake variables
-        private float xShakeFrequency = 10.0f;  // Speed of sine movement - initial value: 20f
-        private float xShakeMagnitude = 3f;   // Size of sine movement - initial value: 0.5f
-        private float yShakeFrequency = 10.0f;
-        private float yShakeMagnitude = 3f;
-        private float scaleShakeFrequency = 3f;
-        private float scaleShakeMagnitude = 10f;
+        protected float xShakeFrequency = 10.0f;  // Speed of sine movement - initial value: 20f
+        protected float xShakeMagnitude = 3f;   // Size of sine movement - initial value: 0.5f
+        protected float yShakeFrequency = 10.0f;
+        protected float yShakeMagnitude = 3f;
+        protected float scaleShakeFrequency = 3f;
+        protected float scaleShakeMagnitude = 10f;
 
         private bool xNegateSin;
-        private bool yNegateSin;
-        private bool scaleNegateSin;
+        protected bool yNegateSin;
+        protected bool scaleNegateSin;
 
-        private bool stoppingShake;
-        private bool stoppingRotate; 
+        protected bool stoppingShake;
+        protected bool stoppingRotate;
 
-        private float stopDuration = 0.1f; 
+        protected float stopDuration = 0.1f; 
 
         [EnumFlag]
         private SHAKE_AXIS shakeAxes;
 
         // Awake is called before Start
-        void Awake()
+        protected virtual void Awake()
         {
             startPos = transform.position;
             startScale = transform.localScale;
             startRot = transform.rotation;
 
             // Testing
-            //Shake(SHAKE_AXIS.Z, 5f, 3f, false);
-            //Shake(SHAKE_AXIS.X, 11f, 4f, false);
+            //Shake(SHAKE_AXIS.Z | SHAKE_AXIS.X | SHAKE_AXIS.Y, 5f, 3f, false);
+            //Shake(SHAKE_AXIS.Y, 11f, 4f, false);
             //Rotate();
         }
 
         // Update is called once per frame
-        void Update()
+        protected virtual void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                StopShake();
-                StopRotate(); 
-            }
 
             if (shouldShake == true)
             {
@@ -284,10 +278,10 @@ namespace Jam
             stoppingShake = true; 
         }
 
-        private void OnMouseDown()
+        protected virtual void OnMouseDown()
         {
             // TODO, handle callbacks
-            Debug.Log("Pressed"); 
+            Debug.Log(gameObject.name + " Pressed."); 
         }
 
     }

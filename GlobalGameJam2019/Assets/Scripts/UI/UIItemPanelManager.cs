@@ -27,7 +27,6 @@ namespace Jam {
             uiManager = GetComponentInParent<UIManager>();
 
             itemNameElement.text = ""; 
-
             bodyTextElement.text = "";
             // Disable if active 
             if (gameObject.activeInHierarchy)
