@@ -13,9 +13,11 @@ namespace Jam
         private bool jumpPressed;
         private float mouseX;
         private float mouseY;
+        private Vector3 mousePos;
         private float mouseScrollWheel;
         private bool submitPressed;
         private bool cancelPressed;
+        private bool mouseLeftPressed;
 
         private bool fire1Released;
         private bool fire2Released;
@@ -23,6 +25,7 @@ namespace Jam
         private bool jumpReleased;
         private bool submitReleased;
         private bool cancelReleased;
+        private bool mouseLeftReleased;
 
         private bool fire1Held;
         private bool fire2Held;
@@ -30,6 +33,7 @@ namespace Jam
         private bool jumpHeld;
         private bool submitHeld;
         private bool cancelHeld;
+        private bool mouseLeftHeld;
 
         public float HorizontalAxis
         {
@@ -95,6 +99,14 @@ namespace Jam
             }
         }
 
+        public Vector3 MousePos
+        {
+            get
+            {
+                return mousePos;
+            }
+        }
+
         public float MouseScrollWheel
         {
             get
@@ -116,6 +128,14 @@ namespace Jam
             get
             {
                 return cancelPressed;
+            }
+        }
+
+        public bool MouseLeftPressed
+        {
+            get
+            {
+                return mouseLeftPressed;
             }
         }
 
@@ -167,6 +187,14 @@ namespace Jam
             }
         }
 
+        public bool MouseLeftReleased
+        {
+            get
+            {
+                return mouseLeftReleased;
+            }
+        }
+
         public bool Fire1Held
         {
             get
@@ -215,6 +243,14 @@ namespace Jam
             }
         }
 
+        public bool MouseLeftHeld
+        {
+            get
+            {
+                return mouseLeftHeld;
+            }
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -223,6 +259,7 @@ namespace Jam
             verticalAxis = Input.GetAxis("Vertical");
             mouseX = Input.GetAxis("Mouse X");
             mouseY = Input.GetAxis("Mouse Y");
+            mousePos = Input.mousePosition;
             mouseScrollWheel = Input.GetAxis("Mouse ScrollWheel"); 
 
             // Button Presses
@@ -232,6 +269,7 @@ namespace Jam
             jumpPressed = Input.GetButtonDown("Jump");
             submitPressed = Input.GetButtonDown("Submit");
             cancelPressed = Input.GetButtonDown("Cancel");
+            mouseLeftPressed = Input.GetMouseButtonDown(0); // 0 is left click
 
             // Button Holds
             fire1Held = Input.GetButton("Fire1");
@@ -240,6 +278,7 @@ namespace Jam
             jumpHeld = Input.GetButton("Jump");
             submitHeld = Input.GetButton("Submit");
             cancelHeld = Input.GetButton("Cancel");
+            mouseLeftHeld = Input.GetMouseButton(0);
 
             // Button Releases
             fire1Released = Input.GetButtonUp("Fire1");
@@ -248,6 +287,7 @@ namespace Jam
             jumpReleased = Input.GetButtonUp("Jump");
             submitReleased = Input.GetButtonUp("Submit");
             cancelReleased = Input.GetButtonUp("Cancel");
+            mouseLeftReleased = Input.GetMouseButtonUp(0);
 
             // Testing
             if (JumpPressed)
