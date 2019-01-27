@@ -28,7 +28,9 @@ namespace Jam
         [SerializeField]
         private Player player; 
         [SerializeField]
-        private Transform floor1Transform;
+        private Transform floor1AtticTransform;
+        [SerializeField]
+        private Transform floor2BasementTransform; 
         [SerializeField]
         private Transform atticTransform;
         [SerializeField]
@@ -112,8 +114,17 @@ namespace Jam
             switch(dest)
             {
                 case FLOOR.FIRST:
-                    player.transform.position = floor1Transform.position;
-                    player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                    if(currentFloor == FLOOR.ATTIC)
+                    {
+                        player.transform.position = floor1AtticTransform.position;
+                        player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                    }
+                    else
+                    {
+                        player.transform.position = floor2BasementTransform.position;
+                        player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                    }
+                    
                     followCamera.SetPositionToTarget();
                     break;
                 case FLOOR.ATTIC:

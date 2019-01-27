@@ -37,7 +37,7 @@ namespace Jam
             }
             yield return new WaitForSeconds(1.5f);
 
-            Debug.Log(image.color.a);
+
             if ((Mathf.Round(image.color.a*10)/10) == 1f)
             {
                 FadeInComplete();
