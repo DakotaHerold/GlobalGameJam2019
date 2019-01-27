@@ -20,7 +20,11 @@ public class Player : MonoBehaviour
     private Vector2 mouseLocation;
     private Vector3 direction;
     private BoxCollider2D collisionBox;
+    private FieldOfView fov;
     private bool flashlightOn;
+    private bool colliding;
+    private Collider2D[] itemsNear = new Collider2D[10];
+    private int itemColMask = 1 << 9;
 
     // flashlight attributes
     private float viewRadius;
@@ -38,6 +42,7 @@ public class Player : MonoBehaviour
     // Awake is called before first frame update
     void Awake()
     {
+        fov = GetComponent<FieldOfView>();
         flashlightOn = false;
         cam = Camera.main;
         health = 3;
@@ -50,6 +55,7 @@ public class Player : MonoBehaviour
         // get mouse position
         mouseLocation = cam.ScreenToWorldPoint(InputHandler.Instance.MousePos);
 
+
         // handle movement input
         velocityX += InputHandler.Instance.HorizontalAxis * speed;
         velocityX *= Time.deltaTime;
@@ -57,7 +63,21 @@ public class Player : MonoBehaviour
         velocityY += InputHandler.Instance.VerticalAxis * speed;
         velocityY *= Time.deltaTime;
 
-        transform.Translate(velocityX, velocityY, 0, Space.World);
+        //Physics2D.OverlapCircle(transform.position, fov.viewRadius, itemColMask, itemsNear);
+
+        {
+
+            Debug.Log("item near");
+        }
+
+        if (!colliding)
+        {
+            transform.Translate(velocityX, velocityY, 0, Space.World);
+        }
+        else
+        {
+            transform.Translate(-velocityX * 5, -velocityY * 5, 0, Space.World);
+        }
 
         //**** slow rotation down for polish?
 
@@ -77,5 +97,17 @@ public class Player : MonoBehaviour
             animState = PlayerAnimState.standing;
         }
 
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("collision");
+        colliding = true;
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("exit");
+        colliding = false;
     }
 }
