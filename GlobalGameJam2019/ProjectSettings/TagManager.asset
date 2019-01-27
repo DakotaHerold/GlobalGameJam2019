@@ -44,6 +44,9 @@ TagManager:
   - name: Items
     uniqueID: 276786251
     locked: 0
+  - name: Furniture
+    uniqueID: 873742835
+    locked: 0
   - name: Ghost
     uniqueID: 2710678519
     locked: 0
