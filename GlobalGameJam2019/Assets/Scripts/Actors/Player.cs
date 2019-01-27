@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(GameManager.Instance.CurrentState);
 
         ItemRadiusCheck();
         if (GameManager.Instance.CurrentState != GameManager.GAME_STATE.RUNNING)
@@ -60,10 +61,7 @@ public class Player : MonoBehaviour
 
         // get mouse position
         mouseLocation = cam.ScreenToWorldPoint(InputHandler.Instance.MousePos);
-
-
-        
-
+       
 
 
         if (!colliding)
@@ -172,13 +170,14 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Stairs"))
             return;
 
+        Debug.Log("collision");
         colliding = true;
 
         Ghost ghost = collision.gameObject.GetComponent<Ghost>(); 
         if (ghost == null)
         {
             Vector3 collisionDif = collision.transform.position - transform.position;
-            float distance = 1.0f;
+            float distance = .1f;
 
             Vector3 newDirection = -collisionDif.normalized;
 
@@ -191,7 +190,7 @@ public class Player : MonoBehaviour
             colliding = false;
         }
 
-        Debug.Log("collision");
+        colliding = true;
     }
 
     void OnTriggerExit2D(Collider2D collision)
