@@ -70,3 +70,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741ede57c4ecaad48b996bef93e9825e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followCamera: {fileID: 0}
+  player: {fileID: 0}
+  floor1AtticTransform: {fileID: 0}
+  floor2BasementTransform: {fileID: 0}
+  atticTransform: {fileID: 0}
+  basementTransform: {fileID: 0}
+  uiManager: {fileID: 0}
+  dataManager: {fileID: 4504575892739588987}

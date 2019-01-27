@@ -44,7 +44,8 @@ namespace Jam
         Slippers, 
         GenericShoes, 
         Intro, 
-        Outro
+        OutroPos,
+        OutroNeg
     }
 
     [Serializable]
@@ -149,6 +150,21 @@ namespace Jam
                 }
             }
             return data; 
+        }
+
+        public ItemData GetOutroNeg()
+        {
+            return GetItemData(ID.OutroNeg); 
+        }
+
+        public ItemData GetOutroPos()
+        {
+            return GetItemData(ID.OutroPos);
+        }
+
+        public ItemData GetIntro()
+        {
+            return GetItemData(ID.Intro);
         }
     }
 }

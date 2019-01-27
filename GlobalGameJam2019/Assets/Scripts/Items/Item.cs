@@ -67,6 +67,8 @@ namespace Jam
         // Update is called once per frame
         protected virtual void Update()
         {
+            if (GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING)
+                return; 
 
             if (shouldShake == true)
             {
@@ -114,7 +116,7 @@ namespace Jam
             transform.position = Vector3.Lerp(transform.position, startPos, lerp);
 
             // Round to nearest tenth to stop vector lerp
-            if (Mathf.Round((transform.position.x * 10f)) / 10f == startPos.x)
+            if (Mathf.Round((transform.position.x * 10f)) / 10f == Mathf.Round((startPos.x * 10f)) / 10f)
             {
                 transform.position = startPos;
                 transformComplete = true;
@@ -244,6 +246,9 @@ namespace Jam
         /// <param name="negate">Start negative or positive in sin wave</param>
         public void Shake(SHAKE_AXIS axes, float frequency = 10.0f, float magnitude = 3.0f, bool negate = false)
         {
+            if (axes == SHAKE_AXIS.None)
+                return; 
+
             if(axes.HasFlag(SHAKE_AXIS.X))
             {
                 xShakeFrequency = frequency;
@@ -273,6 +278,11 @@ namespace Jam
             shakeAxes = SHAKE_AXIS.None;
             shouldShake = false;
             stoppingShake = true; 
+        }
+
+        public bool IsStopping()
+        {
+            return stoppingShake || stoppingRotate; 
         }
 
         protected virtual void OnMouseDown()

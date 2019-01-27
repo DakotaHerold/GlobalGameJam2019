@@ -7,6 +7,20 @@ namespace Jam
 {
     public class ItemManager : MonoBehaviour
     {
+        enum INTERVAL
+        {
+            ONE,
+            TWO,
+            THREE
+        }
+
+        class HauntedItem
+        {
+            public float startMotionTimer;
+            public float stopMotionTimer; 
+            public bool active; 
+            public Item item; 
+        }
 
         List<Collectible> potentialCollectibles;
         List<Fixable> fixableItems;
@@ -15,10 +29,25 @@ namespace Jam
         List<Collectible> collectedItems;
         List<Fixable> fixedItems;
 
-        private DataManager dataManager; 
+        List<HauntedItem> hauntedItems; 
+
+        private DataManager dataManager;
+
+        
+        private const float INTERVAL_1 = 5.0f;
+        private const float INTERVAL_2 = 10.0f;
+        private const float INTERVAL_3 = 20.0f;
+
+        private const float INTERVAL_1_FREQ_MAX = 13.0F;
+        private const float INTERVAL_1_MAG_MAX = 3.0F;
+        private const float INTERVAL_2_FREQ_MAX = 13.0F;
+        private const float INTERVAL_2_MAG_MAX = 3.0F;
+        private const float INTERVAL_3_FREQ_MAX = 13.0F;
+        private const float INTERVAL_3_MAG_MAX = 3.0F;
 
         void Awake()
         {
+
             dataManager = GetComponent<DataManager>(); 
             potentialCollectibles = new List<Collectible>();
             fixableItems = new List<Fixable>();
@@ -26,6 +55,7 @@ namespace Jam
 
             collectedItems = new List<Collectible>();
             fixedItems = new List<Fixable>();
+            hauntedItems = new List<HauntedItem>(); 
 
             potentialCollectibles = FindObjectsOfType<Collectible>().ToList();
             fixableItems = FindObjectsOfType<Fixable>().ToList();
@@ -33,6 +63,107 @@ namespace Jam
             herrings = FindObjectsOfType<Item>().ToList();
 
             SetItemData(); 
+        }
+
+        private void LateUpdate()
+        {
+            UpdateHauntedItems(); 
+        }
+
+        private void UpdateHauntedItems()
+        {
+            for(int iItem = 0; iItem < hauntedItems.Count; ++iItem)
+            {
+                if (hauntedItems[iItem].active || hauntedItems[iItem].item.IsStopping())
+                {
+                    hauntedItems[iItem].stopMotionTimer += Time.deltaTime;
+                    if (hauntedItems[iItem].stopMotionTimer >= INTERVAL_1)
+                    {
+                        hauntedItems[iItem].stopMotionTimer = 0.0f;
+                        hauntedItems[iItem].active = false;
+                        hauntedItems[iItem].item.StopRotate();
+                        hauntedItems[iItem].item.StopShake();
+                    }
+                }
+                else
+                {
+                    hauntedItems[iItem].startMotionTimer += Time.deltaTime;
+
+
+                    if (hauntedItems[iItem].startMotionTimer < INTERVAL_3 && hauntedItems[iItem].startMotionTimer < INTERVAL_2 && hauntedItems[iItem].startMotionTimer >= INTERVAL_1)
+                    {
+                        hauntedItems[iItem].startMotionTimer = 0.0f; 
+                        hauntedItems[iItem].active = true;
+                        SetItemIntervalMovement(hauntedItems[iItem].item, INTERVAL.ONE);
+                    }
+                    //else if (hauntedItems[iItem].startMotionTimer < INTERVAL_3 && hauntedItems[iItem].startMotionTimer >= INTERVAL_2 && hauntedItems[iItem].startMotionTimer >= INTERVAL_1)
+                    //{
+                    //    SetItemIntervalMovement(hauntedItems[iItem].item, INTERVAL.TWO);
+                    //}
+                    //else if (hauntedItems[iItem].startMotionTimer >= INTERVAL_3 && hauntedItems[iItem].startMotionTimer >= INTERVAL_2 && hauntedItems[iItem].startMotionTimer >= INTERVAL_1)
+                    //{
+                    //    SetItemIntervalMovement(hauntedItems[iItem].item, INTERVAL.THREE);
+                    //    hauntedItems[iItem].startMotionTimer = 0.0f; 
+                    //}
+                }
+
+
+            }
+        }
+
+        private void SetItemIntervalMovement(Item item, INTERVAL interval)
+        {
+            // Determine whether to rotate or shake
+            int randOne = Random.Range(0, 2); 
+            if(randOne == 0)
+            {
+                item.Rotate(); 
+            }
+            else
+            {
+                // Randomly determine axis 
+                int randTwo = Random.Range(0, 3);
+                Jam.Item.SHAKE_AXIS axis;
+                axis = Item.SHAKE_AXIS.None; 
+                switch(randTwo)
+                {
+                    case 0:
+                        axis = Item.SHAKE_AXIS.X; 
+                        break;
+                    case 1:
+                        axis = Item.SHAKE_AXIS.Y;
+                        break;
+                    case 2:
+                        axis = Item.SHAKE_AXIS.Z;
+                        break; 
+                }
+
+                // Check if the motion should start on the left or right 
+                bool negated = (Random.Range(0, 1) == 0) ? true : false; 
+
+                // Apply interval intensity
+                switch(interval)
+                {
+                    case INTERVAL.ONE:
+                        // Calc frequency and magnitude
+                        float freq1 = Random.Range(0.0f, INTERVAL_1_FREQ_MAX);
+                        float mag1 = Random.Range(0.0f, INTERVAL_1_MAG_MAX);
+                        item.Shake(axis, freq1, mag1, negated); 
+                        break;
+                    case INTERVAL.TWO:
+                        // Calc frequency and magnitude
+                        float freq2 = Random.Range(0.0f, INTERVAL_2_FREQ_MAX);
+                        float mag2 = Random.Range(0.0f, INTERVAL_2_MAG_MAX);
+                        item.Shake(axis, freq2, mag2, negated);
+                        break;
+                    case INTERVAL.THREE:
+                        // Calc frequency and magnitude
+                        float freq3 = Random.Range(0.0f, INTERVAL_3_FREQ_MAX);
+                        float mag3 = Random.Range(0.0f, INTERVAL_3_MAG_MAX);
+                        item.Shake(axis, freq3, mag3, negated);
+                        break; 
+                }
+            }
         }
 
         private void SetItemData()
@@ -88,7 +219,7 @@ namespace Jam
             item.gameObject.SetActive(false); 
             if(potentialCollectibles.Count < 1)
             {
-                // TODO: Game won 
+                GameManager.Instance.GameWon(); 
             }
         }
 
@@ -96,7 +227,41 @@ namespace Jam
         {
             fixableItems.Remove(item);
             fixedItems.Add(item);
-            // TODO: Increase flashlight radius
+            GameManager.Instance.GetPlayer().BrightenFlashlight(); 
+        }
+
+        public void AuditHauntedItems()
+        {
+            List<Item> playerItems = GameManager.Instance.GetPlayer().GetVicinityItems(); 
+            foreach(Item i in playerItems)
+            {
+                bool contains = false;
+                foreach(HauntedItem hauntedItem in hauntedItems)
+                {
+                    if(hauntedItem.item == i)
+                    {
+                        contains = true;
+                        break; 
+                    }
+                }
+                if (contains)
+                    continue; 
+                else
+                {
+                    HauntedItem newItem = new HauntedItem();
+                    newItem.startMotionTimer = 0.0f;
+                    newItem.item = i;
+                    hauntedItems.Add(newItem); 
+                }
+            }
+        }
+
+        public void RemoveHauntedItem(Item item)
+        {
+            hauntedItems.RemoveAll(x => x.item == item);
+            item.StopRotate();
+            item.StopShake(); 
+            //Debug.Log(hauntedItems.Count);
         }
     }
 }

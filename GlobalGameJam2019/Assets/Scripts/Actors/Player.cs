@@ -31,22 +31,24 @@ public class Player : MonoBehaviour
     private bool colliding;
     private int itemColMask = 1 << 9;
 
-    // flashlight attributes
-    private float viewRadius;
-    private float viewAngle;
-
     [SerializeField]
     private PlayerAnimState animState;
-    [SerializeField]
-    private int health;
+    private int health = 4;
     [SerializeField]
     private float speed = 2.0f;
     private float rotationSpeed = 4.0f;
     private float flashDistance = 2.5f;
 
+    private bool takingDamage = false;
+    private SpriteRenderer spriteRend;
+
+    private FieldOfView flashlight; 
+
     // Awake is called before first frame update
     void Awake()
     {
+        flashlight = GetComponentInChildren<FieldOfView>(); 
+        spriteRend = GetComponent<SpriteRenderer>(); 
         render = GetComponentInChildren<MeshRenderer>();
         render.sortingLayerName = SortingLayer.layers[3].name;
         Debug.Log(render.sortingLayerName);
@@ -61,6 +63,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        ItemRadiusCheck();
+        if (GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING)
+            return; 
+
         // get mouse position
         mouseLocation = cam.ScreenToWorldPoint(InputHandler.Instance.MousePos);
 
@@ -72,34 +79,10 @@ public class Player : MonoBehaviour
         velocityY += InputHandler.Instance.VerticalAxis * speed;
         velocityY *= Time.deltaTime;
 
-        tempItems = Physics2D.OverlapCircleAll(transform.position, fov.viewRadius, itemColMask);
+
+        
 
 
-        foreach(var i in tempItems)
-        {
-            if(!itemsNear.Contains(i))
-            {
-                itemsNear.Add(i);
-            }
-        }
-
-        for(int j = itemsNear.Count - 1; j > -1; j--)
-        {
-            bool matches = false;
-
-            for (int k = 0; k < tempItems.Length; k++)
-            {
-                if (itemsNear[j] == tempItems[k])
-                {
-                    matches = true;
-                }
-            }
-            if(matches != true)
-            {
-                itemsNear.Remove(itemsNear[j]);
-            }
-        }
-            //Debug.Log("item near");
 
         if (!colliding)
         {
@@ -130,6 +113,49 @@ public class Player : MonoBehaviour
 
     }
 
+    private void ItemRadiusCheck()
+    {
+        tempItems = Physics2D.OverlapCircleAll(transform.position, fov.viewRadius, itemColMask);
+
+
+        foreach (var i in tempItems)
+        {
+            if (!itemsNear.Contains(i))
+            {
+                itemsNear.Add(i);
+                AddNewHauntedItem(); 
+            }
+        }
+
+        for (int j = itemsNear.Count - 1; j > -1; j--)
+        {
+            bool matches = false;
+
+            for (int k = 0; k < tempItems.Length; k++)
+            {
+                if (itemsNear[j] == tempItems[k])
+                {
+                    matches = true;
+                }
+            }
+            if (matches != true)
+            {
+                RemoveHauntedItem(itemsNear[j].gameObject.GetComponent<Item>()); 
+                itemsNear.Remove(itemsNear[j]);
+            }
+        }
+    }
+
+    private void AddNewHauntedItem()
+    {
+        GameManager.Instance.NewVicinityItem(); 
+    }
+
+    private void RemoveHauntedItem(Item item)
+    {
+        GameManager.Instance.RemoveHauntedItem(item);
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Stairs"))
@@ -148,8 +174,59 @@ public class Player : MonoBehaviour
         colliding = false;
     }
 
-    public List<Collider2D> GetItems()
+    public List<Item> GetVicinityItems()
     {
-        return itemsNear;
+        List<Item> result = new List<Item>(); 
+        foreach(Collider2D c in itemsNear)
+        {
+            result.Add(c.gameObject.GetComponent<Item>()); 
+        }
+        return result;
     }
+
+    public void BrightenFlashlight()
+    {
+        flashlight.viewRadius += 0.25f;
+        flashlight.viewAngle += 5.0f; 
+    }
+
+    public void DimFlashlight()
+    {
+        flashlight.viewRadius -= 0.2f;
+        flashlight.viewAngle -= 2.5f;
+    }
+
+    public void TakeDamage()
+    {
+        if (takingDamage)
+            return;
+
+        
+        health--;
+        // TODO: Flash player, give momentary invulnerability
+        if (health < 0)
+            GameManager.Instance.GameOver(); 
+        else
+        {
+            DimFlashlight();
+            StartCoroutine(DamageRoutine()); 
+        }
+
+    }
+
+    IEnumerator DamageRoutine()
+    {
+        takingDamage = true; 
+        Color baseColor = spriteRend.color;
+        for (int i = 0; i < 5; ++i)
+        {
+            spriteRend.color = Color.white;
+            yield return new WaitForSeconds(.1f);
+            spriteRend.color = Color.red;
+            yield return new WaitForSeconds(.1f);
+        }
+        spriteRend.color = baseColor;
+        takingDamage = false; 
+    }
+    
 }
