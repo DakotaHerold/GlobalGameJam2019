@@ -12,7 +12,8 @@ namespace Jam
             RUNNING,
             READING,
             TRANSITIONING,
-            COMPLETE
+            COMPLETE,
+            RESTARTING
         }
 
         public enum FLOOR
@@ -201,6 +202,11 @@ namespace Jam
         public Player GetPlayer()
         {
             return player; 
+        }
+
+        public ItemManager GetItemManager()
+        {
+            return itemManager; 
         }
 
         public void PlayScribbleSound()

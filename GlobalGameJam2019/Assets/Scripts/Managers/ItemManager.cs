@@ -266,5 +266,7 @@ namespace Jam
             item.StopShake(); 
             //Debug.Log(hauntedItems.Count);
         }
+
+
     }
 }

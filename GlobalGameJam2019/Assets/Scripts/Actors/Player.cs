@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     private FieldOfView fov;
     private bool flashlightOn;
     private bool colliding;
-    private int itemColMask = 1 << 9;
+    private int itemColMask = 1 << 8;
 
     [SerializeField]
     private PlayerAnimState animState;
@@ -111,6 +111,28 @@ public class Player : MonoBehaviour
             animState = PlayerAnimState.standing;
         }
 
+        //FlashlightCheck(); 
+    }
+
+    public void FlashlightCheck()
+    {
+        List<Transform> visibleTargets = fov.visibleTargets;
+        //Debug.Log(visibleTargets.Count); 
+        foreach(Transform t in visibleTargets)
+        {
+            Debug.Log(t.gameObject.name); 
+            Ghost ghost = t.gameObject.GetComponent<Ghost>();
+            Item item = t.gameObject.GetComponent<Item>();
+
+            if (item != null)
+            {
+                GameManager.Instance.GetItemManager().RemoveHauntedItem(item); 
+            }
+            else if(ghost != null)
+            {
+                ghost.SpotGhost(); 
+            }
+        }
     }
 
     private void ItemRadiusCheck()

@@ -70,6 +70,11 @@ public class FieldOfView : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        FindVisibleTargets(); 
+    }
+
     private void LateUpdate()
     {
         DrawFieldOfView();
@@ -78,7 +83,8 @@ public class FieldOfView : MonoBehaviour
     void FindVisibleTargets()
     {
         visibleTargets.Clear();
-        Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), viewRadius, targetMask);
+        Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll(transform.position, viewRadius, targetMask);
+     
         for (int i = 0; i < targetsInViewRadius.Length; i++)
         {
             Transform target = targetsInViewRadius[i].transform;
@@ -90,6 +96,7 @@ public class FieldOfView : MonoBehaviour
                 {
                     //print("I see someone" + i);
                     visibleTargets.Add(target);
+                    GameManager.Instance.GetPlayer().FlashlightCheck(); 
                 }
             }
         }

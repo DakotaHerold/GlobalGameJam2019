@@ -487,10 +487,10 @@ MonoBehaviour:
   viewAngle: 45
   targetMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 768
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   meshCol: {fileID: 0}
   visibleTargets: []
   delayBeforeFindingTargets: 0
