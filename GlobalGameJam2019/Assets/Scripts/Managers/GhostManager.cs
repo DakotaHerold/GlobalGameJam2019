@@ -28,25 +28,32 @@ namespace Jam
         void Awake()
         {
             activeGhosts = new List<Ghost>();
-            inactiveGhosts = new List<Ghost>(); 
+            inactiveGhosts = new List<Ghost>();
+            SetupGhosts();
+            currentTimer = 0.0f;
         }
 
         private void Update()
         {
-            if (GameManager.Instance.CurrentState != GameManager.GAME_STATE.RUNNING)
+            // TODO: Remove main menu and make running
+            if (GameManager.Instance.CurrentState != GameManager.GAME_STATE.MAIN_MENU)
                 return;
 
             currentTimer += Time.deltaTime; 
             if(currentTimer >= SPAWN_INTERVAL)
             {
-                SpawnGhost(); 
+                currentTimer = 0.0f; 
+                if(activeGhosts.Count < 6)
+                    SpawnGhost(); 
             }
         }
 
         private void SpawnGhost()
         {
             Ghost newGhost = inactiveGhosts[0];
-            inactiveGhosts.RemoveAt(0);
+            // Double check, likely removed elsewhere 
+            if (inactiveGhosts.Contains(newGhost))
+                inactiveGhosts.Remove(newGhost); 
             
             GameManager.FLOOR floor = GameManager.Instance.GetCurrentFloor();
             Transform spawnPos = floor1GhostSpawns[0]; 
@@ -65,6 +72,10 @@ namespace Jam
                     newGhost.transform.position = spawnPos.position;
                     break; 
             }
+
+            spawnIndex++;
+            if (spawnIndex > floor1GhostSpawns.Length - 1)
+                spawnIndex = 0; 
 
             // Activate ghost 
             newGhost.SpawnGhost();  

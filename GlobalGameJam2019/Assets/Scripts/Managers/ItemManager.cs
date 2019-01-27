@@ -75,8 +75,15 @@ namespace Jam
 
         private void UpdateHauntedItems()
         {
-            for(int iItem = 0; iItem < hauntedItems.Count; ++iItem)
+            for(int iItem = hauntedItems.Count-1; iItem > -1; --iItem)
             {
+               
+                if(hauntedItems[iItem].item == null)
+                {
+                    RemoveHauntedItem(hauntedItems[iItem].item); 
+                    continue; 
+                }
+
                 if (hauntedItems[iItem].active || hauntedItems[iItem].item.IsStopping())
                 {
                     hauntedItems[iItem].stopMotionTimer += Time.deltaTime;
