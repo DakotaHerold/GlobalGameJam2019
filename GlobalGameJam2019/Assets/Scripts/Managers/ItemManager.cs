@@ -49,12 +49,7 @@ namespace Jam
         {
             Reset();
 
-            potentialCollectibles = FindObjectsOfType<Collectible>().ToList();
-            fixableItems = FindObjectsOfType<Fixable>().ToList();
-
-            herrings = FindObjectsOfType<Item>().ToList();
-
-            SetItemData(); 
+            
         }
 
         private void LateUpdate()
@@ -215,6 +210,7 @@ namespace Jam
 
         public void AddCollectible(Collectible item)
         {
+            Debug.Log(potentialCollectibles);
             potentialCollectibles.Remove(item);
             collectedItems.Add(item);
             // Deactivate game object
@@ -285,6 +281,13 @@ namespace Jam
             collectedItems = new List<Collectible>();
             fixedItems = new List<Fixable>();
             hauntedItems = new List<HauntedItem>();
+
+            potentialCollectibles = FindObjectsOfType<Collectible>().ToList();
+            fixableItems = FindObjectsOfType<Fixable>().ToList();
+
+            herrings = FindObjectsOfType<Item>().ToList();
+
+            SetItemData();
         }
     }
 }
