@@ -36,6 +36,11 @@ namespace Jam
                     uiManager.SkipScroll(); 
                 }
             }
+
+            if(Input.GetKeyDown(KeyCode.A))
+            {
+                StartFloorTransition();
+            }
         }
 
         public void StartGame()
@@ -73,6 +78,17 @@ namespace Jam
         public void ClosePanel()
         {
             uiManager.gameObject.SetActive(false); 
+        }
+
+        public void StartFloorTransition()
+        {
+            uiManager.StartFadeIn(); 
+        }
+
+        public void TransitionFloor()
+        {
+            // TODO: Move everything here while black
+            uiManager.StartFadeOut(); 
         }
 
         public void Quit()

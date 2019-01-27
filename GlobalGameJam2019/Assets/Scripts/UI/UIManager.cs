@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
 namespace Jam
 {
     public class UIManager : MonoBehaviour
     {
         [SerializeField]
-        UIItemPanelManager uiPanel; 
+        private UIItemPanelManager uiPanel;
+
+        [SerializeField]
+        private ScreenFader fader; 
 
         // Start is called before the first frame update
         void Awake()
@@ -33,6 +37,21 @@ namespace Jam
         {
             uiPanel.gameObject.SetActive(false);
             GameManager.Instance.DisableReading(); 
+        }
+
+        public void StartFadeIn()
+        {
+            fader.StartFade(); 
+        }
+
+        public void FadeInComplete()
+        {
+            GameManager.Instance.TransitionFloor(); 
+        }
+
+        public void StartFadeOut()
+        {
+            fader.StartFadeOut(); 
         }
         
     }
