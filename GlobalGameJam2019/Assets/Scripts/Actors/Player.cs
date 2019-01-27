@@ -47,17 +47,7 @@ public class Player : MonoBehaviour
     // Awake is called before first frame update
     void Awake()
     {
-        flashlight = GetComponentInChildren<FieldOfView>(); 
-        spriteRend = GetComponent<SpriteRenderer>(); 
-        render = GetComponentInChildren<MeshRenderer>();
-        render.sortingLayerName = SortingLayer.layers[3].name;
-        Debug.Log(render.sortingLayerName);
-        fov = GetComponent<FieldOfView>();
-        flashlightOn = false;
-        cam = Camera.main;
-        health = 3;
-        collisionBox = GetComponent<BoxCollider2D>();
-        itemsNear = new List<Collider2D>();
+        Reset();
     }
 
     // Update is called once per frame
@@ -65,19 +55,11 @@ public class Player : MonoBehaviour
     {
 
         ItemRadiusCheck();
-        if (GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING)
+        if (GameManager.Instance.CurrentState != GameManager.GAME_STATE.RUNNING)
             return; 
 
         // get mouse position
         mouseLocation = cam.ScreenToWorldPoint(InputHandler.Instance.MousePos);
-
-
-        // handle movement input
-        velocityX += InputHandler.Instance.HorizontalAxis * speed;
-        velocityX *= Time.deltaTime;
-
-        velocityY += InputHandler.Instance.VerticalAxis * speed;
-        velocityY *= Time.deltaTime;
 
 
         
@@ -86,11 +68,18 @@ public class Player : MonoBehaviour
 
         if (!colliding)
         {
+            // handle movement input
+            velocityX += InputHandler.Instance.HorizontalAxis * speed;
+            velocityX *= Time.deltaTime;
+
+            velocityY += InputHandler.Instance.VerticalAxis * speed;
+            velocityY *= Time.deltaTime;
+
             transform.Translate(velocityX, velocityY, 0, Space.World);
         }
         else
         {
-            transform.Translate(-velocityX * 5, -velocityY * 5, 0, Space.World);
+            
         }
 
         //**** slow rotation down for polish?
@@ -120,7 +109,7 @@ public class Player : MonoBehaviour
         //Debug.Log(visibleTargets.Count); 
         foreach(Transform t in visibleTargets)
         {
-            Debug.Log(t.gameObject.name); 
+            //Debug.Log(t.gameObject.name); 
             Ghost ghost = t.gameObject.GetComponent<Ghost>();
             Item item = t.gameObject.GetComponent<Item>();
 
@@ -181,10 +170,28 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Stairs"))
-            return; 
+            return;
+
+        colliding = true;
+
+        Ghost ghost = collision.gameObject.GetComponent<Ghost>(); 
+        if (ghost == null)
+        {
+            Vector3 collisionDif = collision.transform.position - transform.position;
+            float distance = 1.0f;
+
+            Vector3 newDirection = -collisionDif.normalized;
+
+            transform.position += (newDirection * distance);
+
+            colliding = false;
+        }
+        else
+        {
+            colliding = false;
+        }
 
         Debug.Log("collision");
-        colliding = true;
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -250,5 +257,19 @@ public class Player : MonoBehaviour
         spriteRend.color = baseColor;
         takingDamage = false; 
     }
-    
+
+    public void Reset()
+    {
+        flashlight = GetComponentInChildren<FieldOfView>();
+        spriteRend = GetComponent<SpriteRenderer>();
+        render = GetComponentInChildren<MeshRenderer>();
+        render.sortingLayerName = SortingLayer.layers[3].name;
+        Debug.Log(render.sortingLayerName);
+        fov = GetComponent<FieldOfView>();
+        flashlightOn = false;
+        cam = Camera.main;
+        health = 3;
+        collisionBox = GetComponent<BoxCollider2D>();
+        itemsNear = new List<Collider2D>();
+    }
 }

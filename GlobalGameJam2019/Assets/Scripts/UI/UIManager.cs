@@ -22,10 +22,77 @@ namespace Jam
         public void StartPanel(ItemData data)
         {
             uiPanel.StopScroll();
-            uiPanel.SetItemName(data.itemID.ToString());
+            string title = GetTitleFromID(data.itemID); 
+            uiPanel.SetItemName(title);
             uiPanel.SetItemText(data.itemBody);
             uiPanel.gameObject.SetActive(true);
             uiPanel.StartScroll(); 
+        }
+
+        private string GetTitleFromID(ID titleID)
+        {
+            string result = "";
+            switch(titleID)
+            {
+                case ID.Bills:
+                    result = titleID.ToString(); 
+                    break;
+                case ID.Bottles:
+                    result = titleID.ToString();
+                    break;
+                case ID.CardboardBox:
+                    result = "Cardboard Box"; 
+                    break;
+                case ID.Cellphone:
+                    result = titleID.ToString();
+                    break;
+                case ID.Computer:
+                    result = titleID.ToString();
+                    break;
+                case ID.Diary:
+                    result = titleID.ToString();
+                    break;
+                case ID.Dictionary:
+                    result = titleID.ToString();
+                    break;
+                case ID.Doily:
+                    result = titleID.ToString();
+                    break;
+                case ID.GenericBook:
+                    result = "Book";
+                    break;
+                case ID.GenericShoes:
+                    result = "Shoes"; 
+                    break;
+                case ID.Intro:
+                    result = ""; 
+                    break;
+                case ID.LetterOpened:
+                    result = "Open Letter"; 
+                    break;
+                case ID.LetterUnopened:
+                    result = "Unopened Letter"; 
+                    break;
+                case ID.Lockbox:
+                    result = titleID.ToString();
+                    break;
+                case ID.OutroNeg:
+                    result = ""; 
+                    break;
+                case ID.OutroPos:
+                    result = ""; 
+                    break;
+                case ID.Slippers:
+                    result = titleID.ToString(); 
+                    break;
+                case ID.Trunk:
+                    result = titleID.ToString();
+                    break;
+                case ID.Typewriter:
+                    result = titleID.ToString();
+                    break; 
+            }
+            return result; 
         }
 
         public void SkipScroll()

@@ -58,6 +58,9 @@ namespace Jam
         [SerializeField]
         private AudioManager audioManager; 
 
+        [SerializeField]
+        private GhostManager ghostManager; 
+
         private bool itemJustPressed = false;
         // Start is called before the first frame update
         void Awake()
@@ -65,8 +68,13 @@ namespace Jam
             introData = dataManager.GetIntro();
             outroSuccessData = dataManager.GetOutroPos();
             outroFailData = dataManager.GetOutroNeg();
+            itemManager = GetItemManager();
 
             currentState = GAME_STATE.MAIN_MENU;
+
+            // disable background game
+            
+
             currentFloor = FLOOR.FIRST;
         }
 
@@ -87,22 +95,37 @@ namespace Jam
             Debug.Log("Game Started");
             currentState = GAME_STATE.RUNNING;
             // TODO, Fill me in based on the game!
+            player.Reset();
+            itemManager.Reset();
+
+            SetPanelText(introData);
+
         }
 
         public void ResetGame()
         {
             Debug.Log("Game Reset");
-            // TODO, Fill me in based on the game!
+            // need to reset item and ghost managers/containers
+            player.Reset();
+            itemManager.Reset();
+            // need ghost reset function
+            StartGame();
         }
 
         public void GameWon()
         {
             // TODO set panel text but remove title
+            SetPanelText(outroSuccessData);
+
+            currentState = GAME_STATE.COMPLETE;
         }
 
         public void GameOver()
         {
             // TODO set panel text but remove title
+            SetPanelText(outroFailData);
+
+            currentState = GAME_STATE.RESTARTING;
         }
 
         public void EnableReading()
@@ -146,6 +169,7 @@ namespace Jam
         public void TransitionFloor()
         {
             // TODO: Move everything or reset here while black
+            ghostManager.DespawnAllGhosts(); 
             switch (dest)
             {
                 case FLOOR.FIRST:

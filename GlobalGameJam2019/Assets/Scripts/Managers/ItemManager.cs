@@ -47,15 +47,7 @@ namespace Jam
 
         void Awake()
         {
-
-            dataManager = GetComponent<DataManager>(); 
-            potentialCollectibles = new List<Collectible>();
-            fixableItems = new List<Fixable>();
-            herrings = new List<Item>();
-
-            collectedItems = new List<Collectible>();
-            fixedItems = new List<Fixable>();
-            hauntedItems = new List<HauntedItem>(); 
+            Reset();
 
             potentialCollectibles = FindObjectsOfType<Collectible>().ToList();
             fixableItems = FindObjectsOfType<Fixable>().ToList();
@@ -235,9 +227,14 @@ namespace Jam
 
         public void AddFixed(Fixable item)
         {
-            fixableItems.Remove(item);
-            fixedItems.Add(item);
-            GameManager.Instance.GetPlayer().BrightenFlashlight(); 
+            if(fixableItems.Contains(item))
+                fixableItems.Remove(item);
+
+            if (!fixedItems.Contains(item))
+            {
+                fixedItems.Add(item);
+                GameManager.Instance.GetPlayer().BrightenFlashlight();
+            }
         }
 
         public void AuditHauntedItems()
@@ -269,11 +266,25 @@ namespace Jam
         public void RemoveHauntedItem(Item item)
         {
             hauntedItems.RemoveAll(x => x.item == item);
-            item.StopRotate();
-            item.StopShake(); 
+            if(item != null)
+            {
+                item.StopRotate();
+                item.StopShake();
+            }
+            
             //Debug.Log(hauntedItems.Count);
         }
 
+        public void Reset()
+        {
+            dataManager = GetComponent<DataManager>();
+            potentialCollectibles = new List<Collectible>();
+            fixableItems = new List<Fixable>();
+            herrings = new List<Item>();
 
+            collectedItems = new List<Collectible>();
+            fixedItems = new List<Fixable>();
+            hauntedItems = new List<HauntedItem>();
+        }
     }
 }

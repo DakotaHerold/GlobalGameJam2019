@@ -36,7 +36,7 @@ namespace Jam
         private void Update()
         {
             // TODO: Remove main menu and make running
-            if (GameManager.Instance.CurrentState != GameManager.GAME_STATE.MAIN_MENU)
+            if (GameManager.Instance.CurrentState == GameManager.GAME_STATE.COMPLETE  || GameManager.Instance.CurrentState == GameManager.GAME_STATE.MAIN_MENU || GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING || GameManager.Instance.CurrentState == GameManager.GAME_STATE.TRANSITIONING || GameManager.Instance.CurrentState == GameManager.GAME_STATE.RESTARTING)
                 return;
 
             currentTimer += Time.deltaTime; 
@@ -102,6 +102,7 @@ namespace Jam
 
         public void DespawnAllGhosts()
         {
+            currentTimer = 0.0f;
             foreach(Ghost g in activeGhosts)
             {
                 g.DisableSneak();
