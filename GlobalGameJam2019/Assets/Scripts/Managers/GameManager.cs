@@ -14,16 +14,36 @@ namespace Jam
             COMPLETE
         }
 
+        public enum FLOOR
+        {
+            First, 
+            Basement,
+            Attic
+        }
+
+        [SerializeField]
+        private Player player; 
+        [SerializeField]
+        private Transform floor1Transform;
+        [SerializeField]
+        private Transform atticTransform;
+        [SerializeField]
+        private Transform basementTransform; 
+
         private GAME_STATE currentState; 
         public GAME_STATE CurrentState { get { return currentState; } }
 
-        private UIManager uiManager; 
+        private UIManager uiManager;
+
+        private FLOOR currentFloor;
+        private FLOOR dest; 
 
         // Start is called before the first frame update
         void Awake()
         {
             uiManager = FindObjectOfType<UIManager>(); 
-            currentState = GAME_STATE.MAIN_MENU; 
+            currentState = GAME_STATE.MAIN_MENU;
+            currentFloor = FLOOR.First; 
         }
 
         // Update is called once per frame
@@ -35,11 +55,6 @@ namespace Jam
                 {
                     uiManager.SkipScroll(); 
                 }
-            }
-
-            if(Input.GetKeyDown(KeyCode.A))
-            {
-                StartFloorTransition();
             }
         }
 
@@ -80,14 +95,31 @@ namespace Jam
             uiManager.gameObject.SetActive(false); 
         }
 
-        public void StartFloorTransition()
+        public void StartFloorTransition(FLOOR destination)
         {
+            dest = destination; 
             uiManager.StartFadeIn(); 
         }
 
         public void TransitionFloor()
         {
-            // TODO: Move everything here while black
+            // TODO: Move everything or reset here while black
+            switch(dest)
+            {
+                case FLOOR.First:
+                    player.transform.position = floor1Transform.position;
+                    player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f); 
+                    break;
+                case FLOOR.Attic:
+                    player.transform.position = atticTransform.position;
+                    player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                    break;
+                case FLOOR.Basement:
+                    player.transform.position = basementTransform.position;
+                    player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                    break; 
+            }
+
             uiManager.StartFadeOut(); 
         }
 
