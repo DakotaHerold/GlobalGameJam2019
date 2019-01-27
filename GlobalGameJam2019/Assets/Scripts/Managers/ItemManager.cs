@@ -235,9 +235,14 @@ namespace Jam
 
         public void AddFixed(Fixable item)
         {
-            fixableItems.Remove(item);
-            fixedItems.Add(item);
-            GameManager.Instance.GetPlayer().BrightenFlashlight(); 
+            if(fixableItems.Contains(item))
+                fixableItems.Remove(item);
+
+            if (!fixedItems.Contains(item))
+            {
+                fixedItems.Add(item);
+                GameManager.Instance.GetPlayer().BrightenFlashlight();
+            }
         }
 
         public void AuditHauntedItems()
