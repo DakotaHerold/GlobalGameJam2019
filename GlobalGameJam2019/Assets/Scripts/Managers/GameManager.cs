@@ -56,6 +56,9 @@ namespace Jam
         private ItemManager itemManager;
 
         [SerializeField]
+        private GhostManager ghostManager;
+
+        [SerializeField]
         private AudioManager audioManager; 
 
         private bool itemJustPressed = false;
@@ -65,9 +68,12 @@ namespace Jam
             introData = dataManager.GetIntro();
             outroSuccessData = dataManager.GetOutroPos();
             outroFailData = dataManager.GetOutroNeg();
+            itemManager = GetItemManager();
 
             currentState = GAME_STATE.MAIN_MENU;
             currentFloor = FLOOR.FIRST;
+
+            StartGame();
         }
 
         // Update is called once per frame
@@ -87,22 +93,37 @@ namespace Jam
             Debug.Log("Game Started");
             currentState = GAME_STATE.RUNNING;
             // TODO, Fill me in based on the game!
+            ResetGame();
+
+            SetPanelText(introData);
+
         }
 
         public void ResetGame()
         {
             Debug.Log("Game Reset");
-            // TODO, Fill me in based on the game!
+            // need to reset item and ghost managers/containers
+            player.Reset();
+            itemManager.Reset();
+            // need ghost reset function
+
+            StartGame();
         }
 
         public void GameWon()
         {
             // TODO set panel text but remove title
+            SetPanelText(outroSuccessData);
+
+            currentState = GAME_STATE.COMPLETE;
         }
 
         public void GameOver()
         {
             // TODO set panel text but remove title
+            SetPanelText(outroFailData);
+
+            currentState = GAME_STATE.RESTARTING;
         }
 
         public void EnableReading()

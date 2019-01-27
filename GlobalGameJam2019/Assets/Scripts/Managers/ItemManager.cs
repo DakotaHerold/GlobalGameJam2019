@@ -47,15 +47,7 @@ namespace Jam
 
         void Awake()
         {
-
-            dataManager = GetComponent<DataManager>(); 
-            potentialCollectibles = new List<Collectible>();
-            fixableItems = new List<Fixable>();
-            herrings = new List<Item>();
-
-            collectedItems = new List<Collectible>();
-            fixedItems = new List<Fixable>();
-            hauntedItems = new List<HauntedItem>(); 
+            Reset();
 
             potentialCollectibles = FindObjectsOfType<Collectible>().ToList();
             fixableItems = FindObjectsOfType<Fixable>().ToList();
@@ -267,6 +259,16 @@ namespace Jam
             //Debug.Log(hauntedItems.Count);
         }
 
+        public void Reset()
+        {
+            dataManager = GetComponent<DataManager>();
+            potentialCollectibles = new List<Collectible>();
+            fixableItems = new List<Fixable>();
+            herrings = new List<Item>();
 
+            collectedItems = new List<Collectible>();
+            fixedItems = new List<Fixable>();
+            hauntedItems = new List<HauntedItem>();
+        }
     }
 }
