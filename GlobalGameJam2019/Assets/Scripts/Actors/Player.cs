@@ -47,17 +47,7 @@ public class Player : MonoBehaviour
     // Awake is called before first frame update
     void Awake()
     {
-        flashlight = GetComponentInChildren<FieldOfView>(); 
-        spriteRend = GetComponent<SpriteRenderer>(); 
-        render = GetComponentInChildren<MeshRenderer>();
-        render.sortingLayerName = SortingLayer.layers[3].name;
-        Debug.Log(render.sortingLayerName);
-        fov = GetComponent<FieldOfView>();
-        flashlightOn = false;
-        cam = Camera.main;
-        health = 3;
-        collisionBox = GetComponent<BoxCollider2D>();
-        itemsNear = new List<Collider2D>();
+        Reset();
     }
 
     // Update is called once per frame
@@ -65,7 +55,7 @@ public class Player : MonoBehaviour
     {
 
         ItemRadiusCheck();
-        if (GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING || GameManager.Instance.CurrentState == GameManager.GAME_STATE.TRANSITIONING)
+        if (GameManager.Instance.CurrentState != GameManager.GAME_STATE.RUNNING)
             return; 
 
         // get mouse position
@@ -250,5 +240,19 @@ public class Player : MonoBehaviour
         spriteRend.color = baseColor;
         takingDamage = false; 
     }
-    
+
+    public void Reset()
+    {
+        flashlight = GetComponentInChildren<FieldOfView>();
+        spriteRend = GetComponent<SpriteRenderer>();
+        render = GetComponentInChildren<MeshRenderer>();
+        render.sortingLayerName = SortingLayer.layers[3].name;
+        Debug.Log(render.sortingLayerName);
+        fov = GetComponent<FieldOfView>();
+        flashlightOn = false;
+        cam = Camera.main;
+        health = 3;
+        collisionBox = GetComponent<BoxCollider2D>();
+        itemsNear = new List<Collider2D>();
+    }
 }
