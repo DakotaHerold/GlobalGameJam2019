@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
     {
 
         ItemRadiusCheck();
-        if (GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING)
+        if (GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING || GameManager.Instance.CurrentState == GameManager.GAME_STATE.TRANSITIONING)
             return; 
 
         // get mouse position
@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
         //Debug.Log(visibleTargets.Count); 
         foreach(Transform t in visibleTargets)
         {
-            Debug.Log(t.gameObject.name); 
+            //Debug.Log(t.gameObject.name); 
             Ghost ghost = t.gameObject.GetComponent<Ghost>();
             Item item = t.gameObject.GetComponent<Item>();
 

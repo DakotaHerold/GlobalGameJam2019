@@ -67,8 +67,15 @@ namespace Jam
 
         private void UpdateHauntedItems()
         {
-            for(int iItem = 0; iItem < hauntedItems.Count; ++iItem)
+            for(int iItem = hauntedItems.Count-1; iItem > -1; --iItem)
             {
+               
+                if(hauntedItems[iItem].item == null)
+                {
+                    RemoveHauntedItem(hauntedItems[iItem].item); 
+                    continue; 
+                }
+
                 if (hauntedItems[iItem].active || hauntedItems[iItem].item.IsStopping())
                 {
                     hauntedItems[iItem].stopMotionTimer += Time.deltaTime;
@@ -220,9 +227,14 @@ namespace Jam
 
         public void AddFixed(Fixable item)
         {
-            fixableItems.Remove(item);
-            fixedItems.Add(item);
-            GameManager.Instance.GetPlayer().BrightenFlashlight(); 
+            if(fixableItems.Contains(item))
+                fixableItems.Remove(item);
+
+            if (!fixedItems.Contains(item))
+            {
+                fixedItems.Add(item);
+                GameManager.Instance.GetPlayer().BrightenFlashlight();
+            }
         }
 
         public void AuditHauntedItems()
@@ -254,8 +266,12 @@ namespace Jam
         public void RemoveHauntedItem(Item item)
         {
             hauntedItems.RemoveAll(x => x.item == item);
-            item.StopRotate();
-            item.StopShake(); 
+            if(item != null)
+            {
+                item.StopRotate();
+                item.StopShake();
+            }
+            
             //Debug.Log(hauntedItems.Count);
         }
 

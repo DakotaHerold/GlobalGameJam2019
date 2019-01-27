@@ -56,10 +56,10 @@ namespace Jam
         private ItemManager itemManager;
 
         [SerializeField]
-        private GhostManager ghostManager;
+        private AudioManager audioManager; 
 
         [SerializeField]
-        private AudioManager audioManager; 
+        private GhostManager ghostManager; 
 
         private bool itemJustPressed = false;
         // Start is called before the first frame update
@@ -167,6 +167,7 @@ namespace Jam
         public void TransitionFloor()
         {
             // TODO: Move everything or reset here while black
+            ghostManager.DespawnAllGhosts(); 
             switch (dest)
             {
                 case FLOOR.FIRST:
