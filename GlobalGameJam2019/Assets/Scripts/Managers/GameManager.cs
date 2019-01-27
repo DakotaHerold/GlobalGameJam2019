@@ -219,6 +219,11 @@ namespace Jam
             audioManager.StopWriteSound(); 
         }
 
+        public FLOOR GetCurrentFloor()
+        {
+            return currentFloor; 
+        }
+
         public void Quit()
         {
             //If we are running in a standalone build of the game
