@@ -53,7 +53,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(GameManager.Instance.CurrentState);
 
         ItemRadiusCheck();
         if (GameManager.Instance.CurrentState != GameManager.GAME_STATE.RUNNING)
