@@ -62,25 +62,24 @@ public class Player : MonoBehaviour
         mouseLocation = cam.ScreenToWorldPoint(InputHandler.Instance.MousePos);
 
 
-        // handle movement input
-        velocityX += InputHandler.Instance.HorizontalAxis * speed;
-        velocityX *= Time.deltaTime;
-
-        velocityY += InputHandler.Instance.VerticalAxis * speed;
-        velocityY *= Time.deltaTime;
-
-
         
 
 
 
         if (!colliding)
         {
+            // handle movement input
+            velocityX += InputHandler.Instance.HorizontalAxis * speed;
+            velocityX *= Time.deltaTime;
+
+            velocityY += InputHandler.Instance.VerticalAxis * speed;
+            velocityY *= Time.deltaTime;
+
             transform.Translate(velocityX, velocityY, 0, Space.World);
         }
         else
         {
-            transform.Translate(-velocityX * 5, -velocityY * 5, 0, Space.World);
+            
         }
 
         //**** slow rotation down for polish?
@@ -171,10 +170,28 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Stairs"))
-            return; 
+            return;
+
+        colliding = true;
+
+        Ghost ghost = collision.gameObject.GetComponent<Ghost>(); 
+        if (ghost == null)
+        {
+            Vector3 collisionDif = collision.transform.position - transform.position;
+            float distance = 1.0f;
+
+            Vector3 newDirection = -collisionDif.normalized;
+
+            transform.position += (newDirection * distance);
+
+            colliding = false;
+        }
+        else
+        {
+            colliding = false;
+        }
 
         Debug.Log("collision");
-        colliding = true;
     }
 
     void OnTriggerExit2D(Collider2D collision)

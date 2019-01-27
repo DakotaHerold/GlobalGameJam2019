@@ -71,6 +71,10 @@ namespace Jam
             itemManager = GetItemManager();
 
             currentState = GAME_STATE.MAIN_MENU;
+
+            // disable background game
+            
+
             currentFloor = FLOOR.FIRST;
         }
 
