@@ -20,10 +20,11 @@ public class Player : MonoBehaviour
     private Vector2 mouseLocation;
     private Vector3 direction;
     private BoxCollider2D collisionBox;
+    private MeshRenderer render;
     private FieldOfView fov;
     private bool flashlightOn;
     private bool colliding;
-    private Collider2D[] itemsNear = new Collider2D[10];
+    private Collider2D[] itemsNear;
     private int itemColMask = 1 << 9;
 
     // flashlight attributes
@@ -42,6 +43,9 @@ public class Player : MonoBehaviour
     // Awake is called before first frame update
     void Awake()
     {
+        render = GetComponentInChildren<MeshRenderer>();
+        render.sortingLayerName = SortingLayer.layers[3].name;
+        Debug.Log(render.sortingLayerName);
         fov = GetComponent<FieldOfView>();
         flashlightOn = false;
         cam = Camera.main;
@@ -63,12 +67,11 @@ public class Player : MonoBehaviour
         velocityY += InputHandler.Instance.VerticalAxis * speed;
         velocityY *= Time.deltaTime;
 
-        //Physics2D.OverlapCircle(transform.position, fov.viewRadius, itemColMask, itemsNear);
+        //itemsNear = Physics2D.OverlapCircle(transform.position, fov.viewRadius, itemColMask);
+        //{
 
-        {
-
-            Debug.Log("item near");
-        }
+        //    Debug.Log("item near");
+        //}
 
         if (!colliding)
         {
