@@ -174,7 +174,6 @@ public class FieldOfView : MonoBehaviour
         viewMesh.Clear();
         viewMesh.vertices = vertices;
         viewMesh.triangles = triangles;
-        meshCol = GetComponentInChildren<MeshCollider>();
         viewMesh.RecalculateNormals();
     }
 
