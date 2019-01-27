@@ -53,6 +53,8 @@ namespace Jam
 
         [SerializeField]
         private ItemManager itemManager;
+
+        private bool itemJustPressed = false;
         // Start is called before the first frame update
         void Awake()
         {
@@ -67,7 +69,7 @@ namespace Jam
         // Update is called once per frame
         void Update()
         {
-            if (currentState == GAME_STATE.READING)
+            if (currentState == GAME_STATE.READING && !itemJustPressed)
             {
                 if (InputHandler.Instance.MouseLeftPressed)
                 {
@@ -109,13 +111,20 @@ namespace Jam
             currentState = GAME_STATE.RUNNING;
         }
 
+        public void AllowSkip()
+        {
+            itemJustPressed = false;
+        }
+
         public void SetPanelText(ItemData data)
         {
-            currentState = GAME_STATE.READING;
+            EnableReading();
+            itemJustPressed = true; 
             if (uiManager != null)
             {
                 uiManager.StartPanel(data);
             }
+            
         }
 
         public void ClosePanel()

@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 376ecadc57f93ca4b9c105f7550aa663
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Black Pen
+  fontNames:
+  - Black Pen
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0de1db6a6958a8549a4d4f8f765546ac, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

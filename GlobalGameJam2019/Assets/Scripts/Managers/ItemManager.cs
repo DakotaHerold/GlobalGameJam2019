@@ -67,6 +67,9 @@ namespace Jam
 
         private void LateUpdate()
         {
+            if (GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING)
+                return; 
+
             UpdateHauntedItems(); 
         }
 

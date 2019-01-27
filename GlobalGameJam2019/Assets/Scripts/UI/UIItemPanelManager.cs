@@ -45,6 +45,7 @@ namespace Jam {
             {
                 bodyTextElement.text += c;
                 yield return new WaitForSeconds(characterTypeDuration);
+                GameManager.Instance.AllowSkip();
             }
             itemBody = "";
             
