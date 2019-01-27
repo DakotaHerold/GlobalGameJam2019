@@ -11,14 +11,15 @@ namespace Jam
             MAIN_MENU, 
             RUNNING,
             READING, 
+            TRANSITIONING, 
             COMPLETE
         }
 
         public enum FLOOR
         {
-            First, 
-            Basement,
-            Attic
+            FIRST, 
+            BASEMENT,
+            ATTIC
         }
 
         [SerializeField]
@@ -33,6 +34,7 @@ namespace Jam
         private GAME_STATE currentState; 
         public GAME_STATE CurrentState { get { return currentState; } }
 
+        [SerializeField]
         private UIManager uiManager;
 
         private FLOOR currentFloor;
@@ -41,9 +43,8 @@ namespace Jam
         // Start is called before the first frame update
         void Awake()
         {
-            uiManager = FindObjectOfType<UIManager>(); 
             currentState = GAME_STATE.MAIN_MENU;
-            currentFloor = FLOOR.First; 
+            currentFloor = FLOOR.FIRST; 
         }
 
         // Update is called once per frame
@@ -97,6 +98,7 @@ namespace Jam
 
         public void StartFloorTransition(FLOOR destination)
         {
+            currentState = GAME_STATE.TRANSITIONING; 
             dest = destination; 
             uiManager.StartFadeIn(); 
         }
@@ -106,21 +108,28 @@ namespace Jam
             // TODO: Move everything or reset here while black
             switch(dest)
             {
-                case FLOOR.First:
+                case FLOOR.FIRST:
                     player.transform.position = floor1Transform.position;
                     player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f); 
                     break;
-                case FLOOR.Attic:
+                case FLOOR.ATTIC:
                     player.transform.position = atticTransform.position;
                     player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
                     break;
-                case FLOOR.Basement:
+                case FLOOR.BASEMENT:
                     player.transform.position = basementTransform.position;
                     player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
                     break; 
             }
+            currentState = GAME_STATE.RUNNING;
+            currentFloor = dest; 
 
             uiManager.StartFadeOut(); 
+        }
+
+        public void TransitionComplete()
+        {
+
         }
 
         public void Quit()

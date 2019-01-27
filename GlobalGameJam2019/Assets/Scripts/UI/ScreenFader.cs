@@ -51,7 +51,7 @@ namespace Jam
 
         private void FadeComplete()
         {
-            uiManager.FadeInComplete(); 
+            uiManager.FullFadeComplete(); 
         }
     }
 }
