@@ -19,7 +19,10 @@ namespace Jam
         }
 
         protected override void OnMouseDown()
-        { 
+        {
+            if(GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING)
+                return;
+
             base.OnMouseDown();
             ItemManager.AddCollectible(this); 
         }

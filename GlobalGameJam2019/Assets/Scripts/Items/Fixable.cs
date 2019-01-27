@@ -26,7 +26,10 @@ namespace Jam
 
         protected override void OnMouseDown()
         {
-            if(!isFixed)
+            if(GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING)
+                return;
+
+            if (!isFixed)
                 FixItem(); 
             base.OnMouseDown();
             ItemManager.AddFixed(this); 

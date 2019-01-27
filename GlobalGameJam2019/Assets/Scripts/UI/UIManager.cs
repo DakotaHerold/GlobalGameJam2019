@@ -23,6 +23,17 @@ namespace Jam
             uiPanel.gameObject.SetActive(true);
             uiPanel.StartScroll(); 
         }
+
+        public void SkipScroll()
+        {
+            uiPanel.SkipScroll(); 
+        }
+
+        public void ClosePanel()
+        {
+            uiPanel.gameObject.SetActive(false);
+            GameManager.Instance.DisableReading(); 
+        }
         
     }
 }
