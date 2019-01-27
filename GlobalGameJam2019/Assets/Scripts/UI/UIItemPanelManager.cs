@@ -79,6 +79,19 @@ namespace Jam {
                 StopCoroutine(activeRoutine); 
         }
 
+        public void SkipScroll()
+        {
+            if(bodyTextElement.text == activeTextBlock)
+            {
+                uiManager.ClosePanel(); 
+            }
+            else
+            {
+                StopScroll();
+                bodyTextElement.text = itemBody; 
+            }
+        }
+
 
     }
 }

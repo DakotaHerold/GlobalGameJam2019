@@ -277,6 +277,9 @@ namespace Jam
 
         protected virtual void OnMouseDown()
         {
+            if (GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING)
+                return; 
+
             ItemManager.ItemPressed(this); 
         }
 

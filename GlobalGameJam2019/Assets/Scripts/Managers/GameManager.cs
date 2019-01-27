@@ -29,7 +29,13 @@ namespace Jam
         // Update is called once per frame
         void Update()
         {
-
+            if(currentState == GAME_STATE.READING)
+            {
+                if(InputHandler.Instance.MouseLeftPressed)
+                {
+                    uiManager.SkipScroll(); 
+                }
+            }
         }
 
         public void StartGame()
@@ -45,9 +51,14 @@ namespace Jam
             // TODO, Fill me in based on the game!
         }
 
-        public void SetReading()
+        public void EnableReading()
         {
             currentState = GAME_STATE.READING; 
+        }
+
+        public void DisableReading()
+        {
+            currentState = GAME_STATE.RUNNING; 
         }
 
         public void SetPanelText(ItemData data)
@@ -57,6 +68,11 @@ namespace Jam
             {
                 uiManager.StartPanel(data); 
             }
+        }
+
+        public void ClosePanel()
+        {
+            uiManager.gameObject.SetActive(false); 
         }
 
         public void Quit()
