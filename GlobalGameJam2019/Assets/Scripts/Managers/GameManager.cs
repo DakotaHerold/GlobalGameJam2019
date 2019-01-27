@@ -54,6 +54,9 @@ namespace Jam
         [SerializeField]
         private ItemManager itemManager;
 
+        [SerializeField]
+        private AudioManager audioManager; 
+
         private bool itemJustPressed = false;
         // Start is called before the first frame update
         void Awake()
@@ -198,6 +201,16 @@ namespace Jam
         public Player GetPlayer()
         {
             return player; 
+        }
+
+        public void PlayScribbleSound()
+        {
+            audioManager.PlayWriteSound(); 
+        }
+
+        public void StopScribbleSound()
+        {
+            audioManager.StopWriteSound(); 
         }
 
         public void Quit()

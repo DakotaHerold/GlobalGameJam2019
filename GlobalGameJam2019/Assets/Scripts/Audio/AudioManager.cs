@@ -9,6 +9,11 @@ namespace Jam
     {
         public AudioMixer audioMixer;
 
+        public AudioSource fxSource;
+        public AudioSource musicSource;
+        [Space(5)]
+        public AudioClip[] writingSFX; 
+
         // Start is called before the first frame update
         void Start()
         {
@@ -21,5 +26,23 @@ namespace Jam
         {
 
         }
+
+        public void PlayWriteSound()
+        {
+            if (fxSource.isPlaying)
+                return; 
+            else
+            {
+                AudioClip clip = writingSFX[Random.Range(0, writingSFX.Length)];
+                if(clip != null)
+                    fxSource.PlayOneShot(clip);
+            }
+        }
+
+        public void StopWriteSound()
+        {
+            fxSource.Stop(); 
+        }
+
     }
 }

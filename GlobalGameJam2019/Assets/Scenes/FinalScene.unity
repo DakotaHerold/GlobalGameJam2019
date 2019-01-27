@@ -848,6 +848,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!82 &106318124 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 106318124, guid: 9fb480141ce627146b95790ef2b87f56,
+    type: 3}
+  m_PrefabInstance: {fileID: 748121871}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &114964635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3737,6 +3743,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 748121871}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &409542846 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 409542846, guid: 9fb480141ce627146b95790ef2b87f56,
+    type: 3}
+  m_PrefabInstance: {fileID: 748121871}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &424397820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4071,11 +4083,14 @@ PrefabInstance:
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 535408532}
-    - target: {fileID: 838252782734911341, guid: f26d7040e4728ab4385a465e13d9c6d3,
-        type: 3}
-      propertyPath: itemManager
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: fxSource
       value: 
-      objectReference: {fileID: 781428655}
+      objectReference: {fileID: 409542846}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: musicSource
+      value: 
+      objectReference: {fileID: 106318124}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
 --- !u!1 &497478123
@@ -6621,14 +6636,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1798874415, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
-      propertyPath: viewRadius
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798874415, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
-      propertyPath: viewAngle
-      value: 45
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
 --- !u!1 &765179559
@@ -6868,18 +6875,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &781428655 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2089496482637869656, guid: f26d7040e4728ab4385a465e13d9c6d3,
-    type: 3}
-  m_PrefabInstance: {fileID: 496172235}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a318e67793ec3f4cabb5a5d142acf30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &786103122
 GameObject:
   m_ObjectHideFlags: 0

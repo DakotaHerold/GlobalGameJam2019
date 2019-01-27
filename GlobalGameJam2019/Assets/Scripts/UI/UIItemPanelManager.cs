@@ -44,9 +44,11 @@ namespace Jam {
             foreach (char c in activeTextBlock)
             {
                 bodyTextElement.text += c;
+                GameManager.Instance.PlayScribbleSound();
                 yield return new WaitForSeconds(characterTypeDuration);
                 GameManager.Instance.AllowSkip();
             }
+            GameManager.Instance.StopScribbleSound(); 
             itemBody = "";
             
         }
@@ -55,7 +57,8 @@ namespace Jam {
         {
             StopCoroutine(activeRoutine); 
             bodyTextElement.text = "";
-            bodyTextElement.text = activeTextBlock; 
+            bodyTextElement.text = activeTextBlock;
+            GameManager.Instance.StopScribbleSound();
         }
 
         public void SetItemText(string newBody)
@@ -76,8 +79,11 @@ namespace Jam {
 
         public void StopScroll()
         {
-            if(activeRoutine != null)
-                StopCoroutine(activeRoutine); 
+            if (activeRoutine != null)
+            {
+                StopCoroutine(activeRoutine);
+                GameManager.Instance.StopScribbleSound();
+            }
         }
 
         public void SkipScroll()

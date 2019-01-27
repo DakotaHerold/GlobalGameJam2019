@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4504575892739588987}
   - component: {fileID: 2089496482637869656}
   - component: {fileID: 838252782734911341}
+  - component: {fileID: 781428654}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -78,3 +79,24 @@ MonoBehaviour:
   basementTransform: {fileID: 0}
   uiManager: {fileID: 0}
   dataManager: {fileID: 4504575892739588987}
+  itemManager: {fileID: 2089496482637869656}
+  audioManager: {fileID: 781428654}
+--- !u!114 &781428654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4504575892739588986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40923411689a9ad4dbb7f4b8715a6539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 0ac7fb39e445048d89688f69c2a1839a, type: 2}
+  fxSource: {fileID: 0}
+  musicSource: {fileID: 0}
+  writingSFX:
+  - {fileID: 8300000, guid: b6ce2e3f1dd60f54f95c844f5cbfffa7, type: 3}
+  - {fileID: 8300000, guid: 351563a95c1d9ad48ab1f6e812e6fe14, type: 3}
+  - {fileID: 8300000, guid: 5cc90f0d2796772448d203d849342e05, type: 3}
