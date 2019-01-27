@@ -13,27 +13,27 @@ MonoBehaviour:
   m_Name: Game Jam Menu UI Data
   m_EditorClassIdentifier: 
   buttonColorBlock:
-    m_NormalColor: {r: 0.35294116, g: 0.7858014, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 0.8088235, b: 0.9630832, a: 1}
-    m_PressedColor: {r: 0.87474656, g: 0.52205884, b: 1, a: 1}
+    m_NormalColor: {r: 0, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
+    m_PressedColor: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
     m_DisabledColor: {r: 0.56114835, g: 0.6628893, b: 0.71323526, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
-  imageColor: {r: 0.375, g: 0.79310364, b: 1, a: 1}
+  imageColor: {r: 1, g: 1, b: 1, a: 1}
   sliderColorBlock:
-    m_NormalColor: {r: 0.375, g: 0.79310364, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.87474656, g: 0.52205884, b: 1, a: 1}
-    m_PressedColor: {r: 1, g: 0.8088235, b: 0.9630832, a: 1}
+    m_NormalColor: {r: 0.009433985, g: 0.009433985, b: 0.009433985, a: 1}
+    m_HighlightedColor: {r: 0.32156864, g: 0.32156864, b: 0.32156864, a: 1}
+    m_PressedColor: {r: 0.7176471, g: 0.7176471, b: 0.7176471, a: 1}
     m_DisabledColor: {r: 0.56114835, g: 0.6628893, b: 0.71323526, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0
-  titleFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  titleTextColor: {r: 0, g: 0, b: 0, a: 1}
+  titleFont: {fileID: 11400000, guid: c4de2947c9dc09544adde91e1e3218fb, type: 2}
+  titleTextColor: {r: 1, g: 1, b: 1, a: 1}
   autoSizeTitleFont: 1
   defaultTitleFontSize: 36
   defaultFontStyles: 0
-  font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  textColor: {r: 0, g: 0, b: 0, a: 1}
+  font: {fileID: 11400000, guid: c4de2947c9dc09544adde91e1e3218fb, type: 2}
+  textColor: {r: 1, g: 1, b: 1, a: 1}
   autoSizeFont: 1
   defaultFontSize: 36
   titleFontStyles: 0
