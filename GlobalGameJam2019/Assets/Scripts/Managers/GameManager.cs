@@ -23,6 +23,9 @@ namespace Jam
         }
 
         [SerializeField]
+        private OrthoSmoothFollow followCamera; 
+
+        [SerializeField]
         private Player player; 
         [SerializeField]
         private Transform floor1Transform;
@@ -110,15 +113,18 @@ namespace Jam
             {
                 case FLOOR.FIRST:
                     player.transform.position = floor1Transform.position;
-                    player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f); 
+                    player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                    followCamera.SetPositionToTarget();
                     break;
                 case FLOOR.ATTIC:
                     player.transform.position = atticTransform.position;
                     player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                    followCamera.SetPositionToTarget();
                     break;
                 case FLOOR.BASEMENT:
                     player.transform.position = basementTransform.position;
                     player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                    followCamera.SetPositionToTarget();
                     break; 
             }
             currentState = GAME_STATE.RUNNING;
