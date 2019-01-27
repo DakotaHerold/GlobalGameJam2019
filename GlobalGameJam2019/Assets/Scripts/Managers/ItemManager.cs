@@ -269,8 +269,12 @@ namespace Jam
         public void RemoveHauntedItem(Item item)
         {
             hauntedItems.RemoveAll(x => x.item == item);
-            item.StopRotate();
-            item.StopShake(); 
+            if(item != null)
+            {
+                item.StopRotate();
+                item.StopShake();
+            }
+            
             //Debug.Log(hauntedItems.Count);
         }
 

@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
         //Debug.Log(visibleTargets.Count); 
         foreach(Transform t in visibleTargets)
         {
-            Debug.Log(t.gameObject.name); 
+            //Debug.Log(t.gameObject.name); 
             Ghost ghost = t.gameObject.GetComponent<Ghost>();
             Item item = t.gameObject.GetComponent<Item>();
 
