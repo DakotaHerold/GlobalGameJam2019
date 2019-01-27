@@ -35,12 +35,14 @@ namespace Jam
 
         public void ClosePanel()
         {
+            fader.gameObject.SetActive(false);
             uiPanel.gameObject.SetActive(false);
             GameManager.Instance.DisableReading(); 
         }
 
         public void StartFadeIn()
         {
+            fader.gameObject.SetActive(true); 
             fader.StartFade(); 
         }
 
@@ -52,6 +54,11 @@ namespace Jam
         public void StartFadeOut()
         {
             fader.StartFadeOut(); 
+        }
+
+        public void FullFadeComplete()
+        {
+            GameManager.Instance.TransitionComplete(); 
         }
         
     }

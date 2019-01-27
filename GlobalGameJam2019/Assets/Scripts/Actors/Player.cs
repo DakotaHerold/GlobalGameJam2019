@@ -132,12 +132,18 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Stairs"))
+            return; 
+
         Debug.Log("collision");
         colliding = true;
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Stairs"))
+            return;
+
         Debug.Log("exit");
         colliding = false;
     }

@@ -10,20 +10,33 @@ namespace Jam
         public Jam.GameManager.FLOOR CurrentFloor;
         public Jam.GameManager.FLOOR DestFloor;
 
-
         // Start is called before the first frame update
         void Awake()
         {
    
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+            if (GameManager.Instance.CurrentState == GameManager.GAME_STATE.TRANSITIONING)
+                return;
+
+            
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
             {
-                GameManager.Instance.StartFloorTransition(DestFloor); 
+                GameManager.Instance.StartFloorTransition(DestFloor);
             }
         }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                //transitioning = false;
+            }
+                 
+        }
+
 
     }
 }
