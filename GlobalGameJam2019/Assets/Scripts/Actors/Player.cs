@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     {
 
         ItemRadiusCheck();
-        if (GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING || GameManager.Instance.CurrentState == GameManager.GAME_STATE.TRANSITIONING)
+        if (GameManager.Instance.CurrentState != GameManager.GAME_STATE.RUNNING)
             return; 
 
         // get mouse position

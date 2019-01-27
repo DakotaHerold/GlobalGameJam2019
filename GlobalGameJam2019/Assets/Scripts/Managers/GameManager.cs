@@ -72,8 +72,6 @@ namespace Jam
 
             currentState = GAME_STATE.MAIN_MENU;
             currentFloor = FLOOR.FIRST;
-
-            StartGame();
         }
 
         // Update is called once per frame
@@ -93,7 +91,8 @@ namespace Jam
             Debug.Log("Game Started");
             currentState = GAME_STATE.RUNNING;
             // TODO, Fill me in based on the game!
-            ResetGame();
+            player.Reset();
+            itemManager.Reset();
 
             SetPanelText(introData);
 
@@ -106,7 +105,6 @@ namespace Jam
             player.Reset();
             itemManager.Reset();
             // need ghost reset function
-
             StartGame();
         }
 
