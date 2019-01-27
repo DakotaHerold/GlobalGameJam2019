@@ -20,11 +20,15 @@ public class Player : MonoBehaviour
     private Vector2 mouseLocation;
     private Vector3 direction;
     private BoxCollider2D collisionBox;
+    private Collider2D[] tempItems;
+
+    [SerializeField]
+    private List<Collider2D> itemsNear;
+
     private MeshRenderer render;
     private FieldOfView fov;
     private bool flashlightOn;
     private bool colliding;
-    private Collider2D[] itemsNear;
     private int itemColMask = 1 << 9;
 
     // flashlight attributes
@@ -51,6 +55,7 @@ public class Player : MonoBehaviour
         cam = Camera.main;
         health = 3;
         collisionBox = GetComponent<BoxCollider2D>();
+        itemsNear = new List<Collider2D>();
     }
 
     // Update is called once per frame
@@ -67,11 +72,34 @@ public class Player : MonoBehaviour
         velocityY += InputHandler.Instance.VerticalAxis * speed;
         velocityY *= Time.deltaTime;
 
-        //itemsNear = Physics2D.OverlapCircle(transform.position, fov.viewRadius, itemColMask);
-        //{
+        tempItems = Physics2D.OverlapCircleAll(transform.position, fov.viewRadius, itemColMask);
 
-        //    Debug.Log("item near");
-        //}
+
+        foreach(var i in tempItems)
+        {
+            if(!itemsNear.Contains(i))
+            {
+                itemsNear.Add(i);
+            }
+        }
+
+        for(int j = itemsNear.Count - 1; j > -1; j--)
+        {
+            bool matches = false;
+
+            for (int k = 0; k < tempItems.Length; k++)
+            {
+                if (itemsNear[j] == tempItems[k])
+                {
+                    matches = true;
+                }
+            }
+            if(matches != true)
+            {
+                itemsNear.Remove(itemsNear[j]);
+            }
+        }
+            //Debug.Log("item near");
 
         if (!colliding)
         {
@@ -112,5 +140,10 @@ public class Player : MonoBehaviour
     {
         Debug.Log("exit");
         colliding = false;
+    }
+
+    public List<Collider2D> GetItems()
+    {
+        return itemsNear;
     }
 }
