@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - Ghost
+  - Lightable
   - Item
   - Player
   - Stairs
@@ -47,9 +47,9 @@ TagManager:
   - name: Ghost
     uniqueID: 2710678519
     locked: 0
-  - name: Flashlight
-    uniqueID: 364333359
-    locked: 0
   - name: Player
     uniqueID: 3800276863
+    locked: 0
+  - name: Flashlight
+    uniqueID: 364333359
     locked: 0
