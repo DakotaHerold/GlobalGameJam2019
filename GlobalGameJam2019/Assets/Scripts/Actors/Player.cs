@@ -151,6 +151,9 @@ public class Player : MonoBehaviour
 
     private void MovementInput()
     {
+        if (GameManager.Instance == null)
+            return; 
+
         if (GameManager.Instance.CurrentState != GameManager.GAME_STATE.RUNNING)
             return;
 
@@ -276,7 +279,7 @@ public class Player : MonoBehaviour
         
         health--;
         // TODO: Flash player, give momentary invulnerability
-        if (health < 0)
+        if (health <= 0)
             GameManager.Instance.GameOver(); 
         else
         {

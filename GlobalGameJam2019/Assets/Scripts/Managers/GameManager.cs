@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Jam
 {
@@ -62,9 +63,12 @@ namespace Jam
         private GhostManager ghostManager; 
 
         private bool itemJustPressed = false;
+
+        private bool gameFinished = false; 
         // Start is called before the first frame update
         void Awake()
         {
+            gameFinished = false; 
             introData = dataManager.GetIntro();
             outroSuccessData = dataManager.GetOutroPos();
             outroFailData = dataManager.GetOutroNeg();
@@ -81,6 +85,8 @@ namespace Jam
         // Update is called once per frame
         void Update()
         {
+    
+
             if (currentState == GAME_STATE.READING && !itemJustPressed)
             {
                 if (InputHandler.Instance.MouseLeftPressed)
@@ -104,6 +110,7 @@ namespace Jam
 
         public void ResetGame()
         {
+            gameFinished = false; 
             Debug.Log("Game Reset");
             // need to reset item and ghost managers/containers
             player.Reset();
@@ -116,16 +123,14 @@ namespace Jam
         {
             // TODO set panel text but remove title
             SetPanelText(outroSuccessData);
-
-            currentState = GAME_STATE.COMPLETE;
+            gameFinished = true; 
         }
 
         public void GameOver()
         {
             // TODO set panel text but remove title
             SetPanelText(outroFailData);
-
-            currentState = GAME_STATE.RESTARTING;
+            gameFinished = true; 
         }
 
         public void EnableReading()
@@ -135,7 +140,15 @@ namespace Jam
 
         public void DisableReading()
         {
-            currentState = GAME_STATE.RUNNING;
+            if (gameFinished)
+            {
+                Quit(); 
+            }
+            else
+            {
+                currentState = GAME_STATE.RUNNING;
+            }
+            
         }
 
         public void AllowSkip()
@@ -157,6 +170,7 @@ namespace Jam
         public void ClosePanel()
         {
             uiManager.gameObject.SetActive(false);
+            
         }
 
         public void StartFloorTransition(FLOOR destination)

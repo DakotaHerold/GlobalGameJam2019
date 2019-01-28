@@ -20,7 +20,10 @@ namespace Jam
 
         protected override void OnMouseDown()
         {
-            if(GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING)
+            if (GameManager.Instance == null)
+                return;
+
+            if (GameManager.Instance.CurrentState == GameManager.GAME_STATE.READING)
                 return;
 
             base.OnMouseDown();
