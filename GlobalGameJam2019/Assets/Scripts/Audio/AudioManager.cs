@@ -30,25 +30,33 @@ namespace Jam
 
         public void PlayWriteSound()
         {
+            float volume = 1f;
+            audioMixer.GetFloat("sfxVol", out volume);
+            //Debug.Log("Vol:" + volume); 
+
             if (fxSource.isPlaying)
                 return; 
             else
             {
                 AudioClip clip = writingSFX[Random.Range(0, writingSFX.Length)];
                 if(clip != null)
-                    fxSource.PlayOneShot(clip);
+                    fxSource.PlayOneShot(clip, volume);
             }
         }
 
         public void PlayFlashlightSFX()
         {
+            float volume = 1f;
+            audioMixer.GetFloat("sfxVol", out volume); 
+           
+
             if (fxSource.isPlaying)
                 return;
             else
             {
                 AudioClip clip = flashlightSound;
                 if (clip != null)
-                    fxSource.PlayOneShot(clip);
+                    fxSource.PlayOneShot(clip, volume);
             }
         }
 

@@ -34,6 +34,6 @@ MonoBehaviour:
   defaultFontStyles: 0
   font: {fileID: 11400000, guid: c4de2947c9dc09544adde91e1e3218fb, type: 2}
   textColor: {r: 1, g: 1, b: 1, a: 1}
-  autoSizeFont: 1
+  autoSizeFont: 0
   defaultFontSize: 36
   titleFontStyles: 0
