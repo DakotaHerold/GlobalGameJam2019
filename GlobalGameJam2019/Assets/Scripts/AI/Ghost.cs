@@ -52,7 +52,8 @@ namespace Jam
 
                 if (allowedToSeek)
                 {
-                    SeekTarget();
+                    if(GameManager.Instance.CurrentState == GameManager.GAME_STATE.RUNNING)
+                        SeekTarget();
                 }
             }
 
@@ -93,7 +94,6 @@ namespace Jam
                 ghostManager.SetGhostInactive(this); 
             }
         }
-
 
         public void EnableSeek()
         {

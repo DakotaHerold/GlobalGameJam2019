@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
 
             if (item != null)
             {
-                GameManager.Instance.GetItemManager().RemoveHauntedItem(item); 
+                GameManager.Instance.GetItemManager().ResetHauntedItem(item); 
             }
             else if(ghost != null)
             {
@@ -138,10 +138,22 @@ public class Player : MonoBehaviour
 
         foreach (var i in tempItems)
         {
-            if (!itemsNear.Contains(i))
+            Item baseItem = i.gameObject.GetComponent<Item>(); 
+
+            if(baseItem != null)
             {
-                itemsNear.Add(i);
-                AddNewHauntedItem(); 
+                if (baseItem is Collectible || baseItem is Fixable)
+                {
+                    continue;
+                }
+                else
+                {
+                    if (!itemsNear.Contains(i))
+                    {
+                        itemsNear.Add(i);
+                        AddNewHauntedItem();
+                    }
+                }
             }
         }
 

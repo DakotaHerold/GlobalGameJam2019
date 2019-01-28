@@ -17,7 +17,9 @@ namespace Jam
         class HauntedItem
         {
             public float startMotionTimer;
-            public float stopMotionTimer; 
+            public float stopMotionTimer;
+            public float targetInterval;
+            public float stopInterval; 
             public bool active; 
             public Item item; 
         }
@@ -34,16 +36,18 @@ namespace Jam
         private DataManager dataManager;
 
         
-        private const float INTERVAL_1 = 5.0f;
+        private const float INTERVAL_1 = 0.75f;
         private const float INTERVAL_2 = 10.0f;
         private const float INTERVAL_3 = 20.0f;
 
-        private const float INTERVAL_1_FREQ_MAX = 13.0F;
+        private const float INTERVAL_1_FREQ_MAX = 7.0F;
         private const float INTERVAL_1_MAG_MAX = 3.0F;
         private const float INTERVAL_2_FREQ_MAX = 13.0F;
         private const float INTERVAL_2_MAG_MAX = 3.0F;
         private const float INTERVAL_3_FREQ_MAX = 13.0F;
         private const float INTERVAL_3_MAG_MAX = 3.0F;
+
+        private const float STOP_INTERVAL = 6.0f; 
 
         void Awake()
         {
@@ -71,11 +75,15 @@ namespace Jam
                     continue; 
                 }
 
-                if (hauntedItems[iItem].active || hauntedItems[iItem].item.IsStopping())
+                //bool stoppingMotion = hauntedItems[iItem].item.IsStopping(); 
+                
+
+                if (hauntedItems[iItem].active)
                 {
                     hauntedItems[iItem].stopMotionTimer += Time.deltaTime;
-                    if (hauntedItems[iItem].stopMotionTimer >= INTERVAL_1)
+                    if (hauntedItems[iItem].stopMotionTimer >= hauntedItems[iItem].stopInterval)
                     {
+                        hauntedItems[iItem].targetInterval = Random.Range(1.0f, INTERVAL_1); 
                         hauntedItems[iItem].stopMotionTimer = 0.0f;
                         hauntedItems[iItem].active = false;
                         hauntedItems[iItem].item.StopRotate();
@@ -87,21 +95,13 @@ namespace Jam
                     hauntedItems[iItem].startMotionTimer += Time.deltaTime;
 
 
-                    if (hauntedItems[iItem].startMotionTimer < INTERVAL_3 && hauntedItems[iItem].startMotionTimer < INTERVAL_2 && hauntedItems[iItem].startMotionTimer >= INTERVAL_1)
+                    if (hauntedItems[iItem].startMotionTimer >= hauntedItems[iItem].targetInterval)
                     {
+                        //hauntedItems[iItem].targetInterval = Random.Range(1.0f, INTERVAL_1);
                         hauntedItems[iItem].startMotionTimer = 0.0f; 
                         hauntedItems[iItem].active = true;
                         SetItemIntervalMovement(hauntedItems[iItem].item, INTERVAL.ONE);
                     }
-                    //else if (hauntedItems[iItem].startMotionTimer < INTERVAL_3 && hauntedItems[iItem].startMotionTimer >= INTERVAL_2 && hauntedItems[iItem].startMotionTimer >= INTERVAL_1)
-                    //{
-                    //    SetItemIntervalMovement(hauntedItems[iItem].item, INTERVAL.TWO);
-                    //}
-                    //else if (hauntedItems[iItem].startMotionTimer >= INTERVAL_3 && hauntedItems[iItem].startMotionTimer >= INTERVAL_2 && hauntedItems[iItem].startMotionTimer >= INTERVAL_1)
-                    //{
-                    //    SetItemIntervalMovement(hauntedItems[iItem].item, INTERVAL.THREE);
-                    //    hauntedItems[iItem].startMotionTimer = 0.0f; 
-                    //}
                 }
 
 
@@ -136,7 +136,7 @@ namespace Jam
                 }
 
                 // Check if the motion should start on the left or right 
-                bool negated = (Random.Range(0, 1) == 0) ? true : false; 
+                bool negated = (Random.Range(0, 2) == 0) ? true : false; 
 
                 // Apply interval intensity
                 switch(interval)
@@ -239,11 +239,12 @@ namespace Jam
             foreach(Item i in playerItems)
             {
                 bool contains = false;
-                foreach(HauntedItem hauntedItem in hauntedItems)
+                for(int jItem = hauntedItems.Count-1; jItem > -1; --jItem)
                 {
-                    if(hauntedItem.item == i)
+                    if(hauntedItems[jItem].item == i)
                     {
                         contains = true;
+                        RemoveHauntedItem(hauntedItems[jItem].item);
                         break; 
                     }
                 }
@@ -252,9 +253,28 @@ namespace Jam
                 else
                 {
                     HauntedItem newItem = new HauntedItem();
+                    newItem.targetInterval = Random.Range(1.0f, INTERVAL_1);
+                    newItem.stopInterval = STOP_INTERVAL; 
                     newItem.startMotionTimer = 0.0f;
+                    newItem.stopMotionTimer = 0.0f; 
+
                     newItem.item = i;
                     hauntedItems.Add(newItem); 
+                }
+            }
+        }
+
+        public void ResetHauntedItem(Item item)
+        {
+            foreach(HauntedItem hi in hauntedItems)
+            {
+                if(hi.item == item)
+                {
+                    hi.stopMotionTimer = 0.0f;
+                    hi.active = false;
+                    hi.startMotionTimer = 0.0f; 
+                    hi.item.StopRotate();
+                    hi.item.StopShake();
                 }
             }
         }

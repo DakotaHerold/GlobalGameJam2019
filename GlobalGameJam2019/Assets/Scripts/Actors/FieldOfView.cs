@@ -96,7 +96,7 @@ public class FieldOfView : MonoBehaviour
                 // Buffer distance so ghost is in the light and not the edge of the light
                 distToTarget -= (viewRadius/5f);
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, dirToTarget, distToTarget, targetMask); 
-                Debug.DrawRay(transform.position, dirToTarget * distToTarget, Color.red);
+                //Debug.DrawRay(transform.position, dirToTarget * distToTarget, Color.red);
                 if (hit)
                 {
                     if (!visibleTargets.Contains(target))

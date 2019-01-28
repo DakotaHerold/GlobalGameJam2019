@@ -268,7 +268,7 @@ namespace Jam
                 scaleNegateSin = negate; 
             }
 
-            shakeAxes |= axes;
+            shakeAxes = axes;
             shouldShake = true;
             stoppingShake = false; 
         }

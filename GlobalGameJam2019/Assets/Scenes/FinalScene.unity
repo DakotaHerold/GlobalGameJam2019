@@ -25416,7 +25416,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1798874415, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
       propertyPath: obstacleMask.m_Bits
-      value: 512
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798874415, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
+      propertyPath: viewRadius
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
@@ -29061,6 +29065,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plant (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4199092012381704148, guid: a2f6285dc91870e44badf2af7993a94e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3067387279972822409, guid: a2f6285dc91870e44badf2af7993a94e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -31826,6 +31835,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35b864400b6669e4d9292ac72b0538bd, type: 3}
+--- !u!1 &964220676 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4199092012381704148, guid: a2f6285dc91870e44badf2af7993a94e,
+    type: 3}
+  m_PrefabInstance: {fileID: 878251856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &964220680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964220676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f519aa564672ccd4ca2cff22d6e16620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  desiredType: 0
 --- !u!1001 &965350264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61077,6 +61105,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: KitchenCounter2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051621208757286977, guid: 49cd7d8b9a3583b488bd880b6553e262,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7310375023841418102, guid: 49cd7d8b9a3583b488bd880b6553e262,
         type: 3}
