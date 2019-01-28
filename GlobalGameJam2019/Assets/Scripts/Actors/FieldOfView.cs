@@ -91,13 +91,22 @@ public class FieldOfView : MonoBehaviour
             Vector2 dirToTarget = (target.position - transform.position).normalized;
             if (Vector2.Angle(transform.up, dirToTarget) < viewAngle / 2)
             {
-                float distToTarget = Vector2.Distance(transform.position, target.position);
-                if (!Physics2D.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
+                //float distToTarget = Vector2.Distance(transform.position, target.position);
+                float distToTarget = viewRadius;
+                // Buffer distance so ghost is in the light and not the edge of the light
+                distToTarget -= (viewRadius/5f);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, dirToTarget, distToTarget, targetMask); 
+                Debug.DrawRay(transform.position, dirToTarget * distToTarget, Color.red);
+                if (hit)
                 {
-                    //print("I see someone" + i);
-                    visibleTargets.Add(target);
-                    GameManager.Instance.GetPlayer().FlashlightCheck(); 
+                    if (!visibleTargets.Contains(target))
+                    {
+                        visibleTargets.Add(target);
+                        GameManager.Instance.GetPlayer().FlashlightCheck();
+                    }
                 }
+                
+        
             }
         }
     }
@@ -231,4 +240,6 @@ public class FieldOfView : MonoBehaviour
 
         return new EdgeInfo(minPoint, maxPoint);
     }
+
+    
 }

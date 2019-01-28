@@ -46,7 +46,8 @@ public class Player : MonoBehaviour
 
     private FieldOfView flashlight;
 
-    private Rigidbody2D rb; 
+    private Rigidbody2D rb;
+    private CircleCollider2D collider; 
     // Awake is called before first frame update
     void Awake()
     {
@@ -230,18 +231,27 @@ public class Player : MonoBehaviour
 
     public void Reset()
     {
+        collider = GetComponent<CircleCollider2D>(); 
         velocity = Vector3.zero;
         rb = GetComponent<Rigidbody2D>(); 
         flashlight = GetComponentInChildren<FieldOfView>();
         spriteRend = GetComponent<SpriteRenderer>();
         render = GetComponentInChildren<MeshRenderer>();
         render.sortingLayerName = SortingLayer.layers[3].name;
-        Debug.Log(render.sortingLayerName);
+        //Debug.Log(render.sortingLayerName);
         fov = GetComponent<FieldOfView>();
         flashlightOn = false;
         cam = Camera.main;
         health = 3;
         collisionBox = GetComponent<BoxCollider2D>();
         itemsNear = new List<Collider2D>();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ghost")
+        {
+            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<BoxCollider2D>(), collider);
+        }
     }
 }

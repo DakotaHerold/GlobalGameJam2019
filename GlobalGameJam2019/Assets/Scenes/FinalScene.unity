@@ -3715,7 +3715,14 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 707985086960953282, guid: d0e31e632217a3f4285ded9e30e95d14,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 707985086960953282, guid: d0e31e632217a3f4285ded9e30e95d14, type: 3}
+    - {fileID: 707985086955707184, guid: d0e31e632217a3f4285ded9e30e95d14, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d0e31e632217a3f4285ded9e30e95d14, type: 3}
 --- !u!1 &120358532
 GameObject:
@@ -16725,6 +16732,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 535408532}
     - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
       propertyPath: fxSource
       value: 
       objectReference: {fileID: 409542846}
@@ -16732,6 +16743,102 @@ PrefabInstance:
       propertyPath: musicSource
       value: 
       objectReference: {fileID: 106318124}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: b6ce2e3f1dd60f54f95c844f5cbfffa7, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 351563a95c1d9ad48ab1f6e812e6fe14, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5cc90f0d2796772448d203d849342e05, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: d00409dfa6233424e8a0a0f4220f015b, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 00b1080d36f0e54498444576e5dc61d0, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 08669db92bc0a37498da25ec8122250e, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: b55d50fdfead5f044a22c133e85e77a8, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[7]
+      value: 
+      objectReference: {fileID: 8300000, guid: 0b6c478fde85e6b44ac0c2f480a0cbe6, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[8]
+      value: 
+      objectReference: {fileID: 8300000, guid: c2d0ed55d14462e4e95ff516c79b5783, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[9]
+      value: 
+      objectReference: {fileID: 8300000, guid: 99a8ca4e053215d4380a7ac1307ca43e, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[10]
+      value: 
+      objectReference: {fileID: 8300000, guid: fbd5dc37b74f41942b671f1eafc4017d, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[11]
+      value: 
+      objectReference: {fileID: 8300000, guid: a47c57ffa5123b848aa436eb0d3fc5ba, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[12]
+      value: 
+      objectReference: {fileID: 8300000, guid: b6ce2e3f1dd60f54f95c844f5cbfffa7, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[13]
+      value: 
+      objectReference: {fileID: 8300000, guid: 351563a95c1d9ad48ab1f6e812e6fe14, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[14]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5cc90f0d2796772448d203d849342e05, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[15]
+      value: 
+      objectReference: {fileID: 8300000, guid: d00409dfa6233424e8a0a0f4220f015b, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[16]
+      value: 
+      objectReference: {fileID: 8300000, guid: 00b1080d36f0e54498444576e5dc61d0, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[17]
+      value: 
+      objectReference: {fileID: 8300000, guid: 08669db92bc0a37498da25ec8122250e, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[18]
+      value: 
+      objectReference: {fileID: 8300000, guid: b55d50fdfead5f044a22c133e85e77a8, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[19]
+      value: 
+      objectReference: {fileID: 8300000, guid: 0b6c478fde85e6b44ac0c2f480a0cbe6, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[20]
+      value: 
+      objectReference: {fileID: 8300000, guid: c2d0ed55d14462e4e95ff516c79b5783, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[21]
+      value: 
+      objectReference: {fileID: 8300000, guid: 99a8ca4e053215d4380a7ac1307ca43e, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[22]
+      value: 
+      objectReference: {fileID: 8300000, guid: fbd5dc37b74f41942b671f1eafc4017d, type: 3}
+    - target: {fileID: 781428654, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
+      propertyPath: writingSFX.Array.data[23]
+      value: 
+      objectReference: {fileID: 8300000, guid: a47c57ffa5123b848aa436eb0d3fc5ba, type: 3}
     - target: {fileID: 496172237, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
       propertyPath: floor1GhostSpawns.Array.data[0]
       value: 
@@ -16770,38 +16877,6 @@ PrefabInstance:
       objectReference: {fileID: 521004092}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f26d7040e4728ab4385a465e13d9c6d3, type: 3}
---- !u!1 &496172236 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4504575892739588986, guid: f26d7040e4728ab4385a465e13d9c6d3,
-    type: 3}
-  m_PrefabInstance: {fileID: 496172235}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &496172237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 496172236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3b0ec575cd44b14bac59500d598605b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floor1GhostSpawns:
-  - {fileID: 784188586}
-  - {fileID: 351856364}
-  - {fileID: 1284276178}
-  basementGhostSpawns:
-  - {fileID: 2050926306}
-  - {fileID: 916468061}
-  - {fileID: 1198837096}
-  atticGhostSpawns:
-  - {fileID: 1296328651}
-  - {fileID: 833116002}
-  - {fileID: 521004092}
-  ghostPrefab: {fileID: 8745678226493952042, guid: abeaa83e89a3d99409ac0bcd1ceecbfe,
-    type: 3}
 --- !u!1 &497478123
 GameObject:
   m_ObjectHideFlags: 0
@@ -25338,6 +25413,10 @@ PrefabInstance:
     - target: {fileID: 1798874413, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1798874415, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
+      propertyPath: obstacleMask.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
