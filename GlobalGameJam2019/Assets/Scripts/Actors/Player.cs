@@ -1,4 +1,5 @@
 ﻿using Jam;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour
 
     // attributes
     private float velocityX, velocityY;
+    private Vector3 velocity; 
     private float mouseX, mouseY;
     private Camera cam;
     private Vector2 mouseLocation;
@@ -35,15 +37,16 @@ public class Player : MonoBehaviour
     private PlayerAnimState animState;
     private int health = 4;
     [SerializeField]
-    private float speed = 2.0f;
+    private float speed = 0.002f;
     private float rotationSpeed = 4.0f;
     private float flashDistance = 2.5f;
 
     private bool takingDamage = false;
     private SpriteRenderer spriteRend;
 
-    private FieldOfView flashlight; 
+    private FieldOfView flashlight;
 
+    private Rigidbody2D rb; 
     // Awake is called before first frame update
     void Awake()
     {
@@ -55,29 +58,14 @@ public class Player : MonoBehaviour
     {
 
         ItemRadiusCheck();
-        if (GameManager.Instance.CurrentState != GameManager.GAME_STATE.RUNNING)
-            return; 
+        
 
         // get mouse position
         mouseLocation = cam.ScreenToWorldPoint(InputHandler.Instance.MousePos);
-       
 
+        //MovementInput(); 
 
-        if (!colliding)
-        {
-            // handle movement input
-            velocityX += InputHandler.Instance.HorizontalAxis * speed;
-            velocityX *= Time.deltaTime;
-
-            velocityY += InputHandler.Instance.VerticalAxis * speed;
-            velocityY *= Time.deltaTime;
-
-            transform.Translate(velocityX, velocityY, 0, Space.World);
-        }
-        else
-        {
-            
-        }
+        
 
         //**** slow rotation down for polish?
 
@@ -88,7 +76,7 @@ public class Player : MonoBehaviour
         transform.up = direction;
 
         // state handling
-        if (velocityX != 0 || velocityY != 0)
+        if (velocity.x != 0 || velocity.y != 0)
         {
             animState = PlayerAnimState.walking;
         }
@@ -98,6 +86,27 @@ public class Player : MonoBehaviour
         }
 
         //FlashlightCheck(); 
+    }
+
+    private void FixedUpdate()
+    {
+        MovementInput(); 
+    }
+
+    private void MovementInput()
+    {
+        if (GameManager.Instance.CurrentState != GameManager.GAME_STATE.RUNNING)
+            return;
+
+        // Update velocity
+        velocity.x += InputHandler.Instance.HorizontalAxis * speed * Time.deltaTime;
+
+        velocity.y += InputHandler.Instance.VerticalAxis * speed * Time.deltaTime;
+
+        Vector2 newPos = rb.position + new Vector2(velocity.x, velocity.y);
+        rb.MovePosition(newPos);
+        velocity = Vector3.zero;
+        
     }
 
     public void FlashlightCheck()
@@ -164,43 +173,6 @@ public class Player : MonoBehaviour
         GameManager.Instance.RemoveHauntedItem(item);
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Stairs"))
-            return;
-
-        Debug.Log("collision");
-        colliding = true;
-
-        Ghost ghost = collision.gameObject.GetComponent<Ghost>(); 
-        if (ghost == null)
-        {
-            Vector3 collisionDif = collision.transform.position - transform.position;
-            float distance = .1f;
-
-            Vector3 newDirection = -collisionDif.normalized;
-
-            transform.position += (newDirection * distance);
-
-            colliding = false;
-        }
-        else
-        {
-            colliding = false;
-        }
-
-        colliding = true;
-    }
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Stairs"))
-            return;
-
-        Debug.Log("exit");
-        colliding = false;
-    }
-
     public List<Item> GetVicinityItems()
     {
         List<Item> result = new List<Item>(); 
@@ -258,6 +230,8 @@ public class Player : MonoBehaviour
 
     public void Reset()
     {
+        velocity = Vector3.zero;
+        rb = GetComponent<Rigidbody2D>(); 
         flashlight = GetComponentInChildren<FieldOfView>();
         spriteRend = GetComponent<SpriteRenderer>();
         render = GetComponentInChildren<MeshRenderer>();
