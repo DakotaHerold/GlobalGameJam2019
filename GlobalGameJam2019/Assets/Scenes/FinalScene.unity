@@ -3755,6 +3755,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6901205743470019179, guid: d0e31e632217a3f4285ded9e30e95d14,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6233018678758617231, guid: d0e31e632217a3f4285ded9e30e95d14,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -25735,22 +25740,6 @@ PrefabInstance:
     - target: {fileID: 1798874413, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798874415, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
-      propertyPath: obstacleMask.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798874415, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
-      propertyPath: viewRadius
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798874415, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1217645391, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}

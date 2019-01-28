@@ -347,6 +347,7 @@ GameObject:
   - component: {fileID: 1798874416}
   - component: {fileID: 1798874414}
   - component: {fileID: 1798874415}
+  - component: {fileID: 1900016913}
   m_Layer: 10
   m_Name: Player 1
   m_TagString: Untagged
@@ -408,7 +409,7 @@ SpriteRenderer:
   m_SortingLayerID: -494690433
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: b6655e208d5e5cb429df78d7bec1d07f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f0704aba4abf1294a80c497f55cffa50, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -434,6 +435,7 @@ MonoBehaviour:
   itemsNear: []
   animState: 0
   speed: 2
+  movingFlashlightLocalPos: {x: 0.224, y: 0.338, z: 0}
 --- !u!50 &1798874416
 Rigidbody2D:
   serializedVersion: 4
@@ -490,7 +492,7 @@ MonoBehaviour:
     m_Bits: 768
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   meshCol: {fileID: 0}
   visibleTargets: []
   delayBeforeFindingTargets: 0
@@ -498,3 +500,22 @@ MonoBehaviour:
   edgeResolveIteration: 0
   edgeDistanceThreshold: 0
   viewMeshFilter: {fileID: 1217645390}
+--- !u!95 &1900016913
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798874410}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 011ae2a852e5468458f35324a0b0606f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

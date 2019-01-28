@@ -47,10 +47,18 @@ public class Player : MonoBehaviour
     private bool flashlightActive; 
 
     private Rigidbody2D rb;
-    private CircleCollider2D collider; 
+    private CircleCollider2D collider;
+
+    private Animator animController;
+    [SerializeField]
+    private Vector3 movingFlashlightLocalPos;
+
+    private GameObject flashlightObj; 
     // Awake is called before first frame update
     void Awake()
     {
+        flashlightObj = transform.GetChild(0).gameObject; 
+        animController = GetComponent<Animator>(); 
         Reset();
     }
 
@@ -61,6 +69,11 @@ public class Player : MonoBehaviour
         ItemRadiusCheck();
         FlashLightUpdate(); 
         MouseRotationUpdate(); 
+
+
+
+        
+
         // state handling
         //if (velocity.x != 0 || velocity.y != 0)
         //{
@@ -114,7 +127,7 @@ public class Player : MonoBehaviour
     {
         flashlightActive = false;
         lightConeRenderer.enabled = false;
-        fov.enabled = false;
+        fov.enabled = false; 
     }
 
     private void ToggleFlashlight()
@@ -164,6 +177,19 @@ public class Player : MonoBehaviour
 
         Vector2 newPos = rb.position + new Vector2(velocity.x, velocity.y);
         rb.MovePosition(newPos);
+
+        // Update animation 
+        if (InputHandler.Instance.HorizontalAxis != 0 || InputHandler.Instance.VerticalAxis != 0)
+        {
+            animController.SetBool("Moving", true);
+            flashlightObj.transform.localPosition = movingFlashlightLocalPos;
+        }
+        else
+        {
+            animController.SetBool("Moving", false);
+            flashlightObj.transform.localPosition = Vector3.zero; 
+        }
+        // Zero out for next frame
         velocity = Vector3.zero;
         
     }
