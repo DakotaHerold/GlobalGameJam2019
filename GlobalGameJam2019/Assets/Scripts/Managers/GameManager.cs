@@ -85,7 +85,10 @@ namespace Jam
         // Update is called once per frame
         void Update()
         {
-    
+            if(InputHandler.Instance.CancelPressed)
+            {
+                Quit(); 
+            }
 
             if (currentState == GAME_STATE.READING && !itemJustPressed)
             {
