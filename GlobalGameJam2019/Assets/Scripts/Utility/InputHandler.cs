@@ -290,12 +290,12 @@ namespace Jam
             mouseLeftReleased = Input.GetMouseButtonUp(0);
 
             // Testing
-            if (JumpPressed)
-                Debug.Log("Jump Pressed");
-            if (JumpHeld)
-                Debug.Log("Jump Held");
-            if (jumpReleased)
-                Debug.Log("Jump Released"); 
+            //if (JumpPressed)
+            //    Debug.Log("Jump Pressed");
+            //if (JumpHeld)
+            //    Debug.Log("Jump Held");
+            //if (jumpReleased)
+            //    Debug.Log("Jump Released"); 
         }
     }
 }

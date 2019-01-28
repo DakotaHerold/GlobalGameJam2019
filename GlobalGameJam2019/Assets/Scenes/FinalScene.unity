@@ -25422,6 +25422,14 @@ PrefabInstance:
       propertyPath: viewRadius
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1798874415, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217645391, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fb480141ce627146b95790ef2b87f56, type: 3}
 --- !u!1001 &753675772

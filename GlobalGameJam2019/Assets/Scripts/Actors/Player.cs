@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private List<Collider2D> itemsNear;
 
-    private MeshRenderer render;
+    private MeshRenderer lightConeRenderer;
     private FieldOfView fov;
     private bool flashlightOn;
     private bool colliding;
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     private bool takingDamage = false;
     private SpriteRenderer spriteRend;
 
-    private FieldOfView flashlight;
+    private bool flashlightActive; 
 
     private Rigidbody2D rb;
     private CircleCollider2D collider; 
@@ -59,39 +59,94 @@ public class Player : MonoBehaviour
     {
 
         ItemRadiusCheck();
-        
+        FlashLightUpdate(); 
+        MouseRotationUpdate(); 
+        // state handling
+        //if (velocity.x != 0 || velocity.y != 0)
+        //{
+        //    animState = PlayerAnimState.walking;
+        //}
+        //else
+        //{
+        //    animState = PlayerAnimState.standing;
+        //}
+    }
+
+    private void FixedUpdate()
+    {
+        MovementInput(); 
+    }
+
+    private void FlashLightUpdate()
+    {
+        if (GameManager.Instance.CurrentState != GameManager.GAME_STATE.RUNNING)
+            return; 
+
+        if(InputHandler.Instance.JumpPressed)
+        {
+            GameManager.Instance.GetAudioManager().PlayFlashlightSFX(); 
+        }
+        else if(InputHandler.Instance.JumpReleased)
+        {
+            GameManager.Instance.GetAudioManager().PlayFlashlightSFX();
+        }
+
+        if (InputHandler.Instance.JumpHeld)
+        {
+            // Toggle Flashlight
+            //ToggleFlashlight(); 
+            ShowCone(); 
+        }
+        else
+        {
+            HideCone();
+        }
+    }
+
+    private void ShowCone()
+    {
+        flashlightActive = true;
+        lightConeRenderer.enabled = true;
+        fov.enabled = true;
+    }
+
+    private void HideCone()
+    {
+        flashlightActive = false;
+        lightConeRenderer.enabled = false;
+        fov.enabled = false;
+    }
+
+    private void ToggleFlashlight()
+    {
+        if(flashlightActive)
+        {
+            ShowCone(); 
+        }
+        else
+        {
+            HideCone(); 
+        }
+        // TODO: Play flash light click sound here
+    }
+
+
+    private void MouseRotationUpdate()
+    {
+        if (GameManager.Instance.CurrentState != GameManager.GAME_STATE.RUNNING)
+        {
+            transform.up = Vector3.up; 
+            return;
+        }
 
         // get mouse position
         mouseLocation = cam.ScreenToWorldPoint(InputHandler.Instance.MousePos);
-
-        //MovementInput(); 
-
-        
-
-        //**** slow rotation down for polish?
 
         // get direction you want to point at
         Vector2 direction = (mouseLocation - (Vector2)transform.position).normalized;
 
         // set vector of transform directly
         transform.up = direction;
-
-        // state handling
-        if (velocity.x != 0 || velocity.y != 0)
-        {
-            animState = PlayerAnimState.walking;
-        }
-        else
-        {
-            animState = PlayerAnimState.standing;
-        }
-
-        //FlashlightCheck(); 
-    }
-
-    private void FixedUpdate()
-    {
-        MovementInput(); 
     }
 
     private void MovementInput()
@@ -120,15 +175,20 @@ public class Player : MonoBehaviour
             Ghost ghost = t.gameObject.GetComponent<Ghost>();
             Item item = t.gameObject.GetComponent<Item>();
 
-            if (item != null)
+            if(flashlightActive)
             {
-                GameManager.Instance.GetItemManager().ResetHauntedItem(item); 
+                if (item != null)
+                {
+                    GameManager.Instance.GetItemManager().ResetHauntedItem(item);
+                }
+                else if (ghost != null)
+                {
+                    ghost.SpotGhost();
+                }
             }
-            else if(ghost != null)
-            {
-                ghost.SpotGhost(); 
-            }
+            
         }
+        fov.visibleTargets.Clear();
     }
 
     private void ItemRadiusCheck()
@@ -198,14 +258,14 @@ public class Player : MonoBehaviour
 
     public void BrightenFlashlight()
     {
-        flashlight.viewRadius += 0.25f;
-        flashlight.viewAngle += 5.0f; 
+        fov.viewRadius += 0.25f;
+        fov.viewAngle += 5.0f; 
     }
 
     public void DimFlashlight()
     {
-        flashlight.viewRadius -= 0.2f;
-        flashlight.viewAngle -= 2.5f;
+        fov.viewRadius -= 0.2f;
+        fov.viewAngle -= 2.5f;
     }
 
     public void TakeDamage()
@@ -245,11 +305,10 @@ public class Player : MonoBehaviour
     {
         collider = GetComponent<CircleCollider2D>(); 
         velocity = Vector3.zero;
-        rb = GetComponent<Rigidbody2D>(); 
-        flashlight = GetComponentInChildren<FieldOfView>();
+        rb = GetComponent<Rigidbody2D>();       
         spriteRend = GetComponent<SpriteRenderer>();
-        render = GetComponentInChildren<MeshRenderer>();
-        render.sortingLayerName = SortingLayer.layers[3].name;
+        lightConeRenderer = GetComponentInChildren<MeshRenderer>();
+        lightConeRenderer.sortingLayerName = SortingLayer.layers[3].name;
         //Debug.Log(render.sortingLayerName);
         fov = GetComponent<FieldOfView>();
         flashlightOn = false;
@@ -257,6 +316,8 @@ public class Player : MonoBehaviour
         health = 3;
         collisionBox = GetComponent<BoxCollider2D>();
         itemsNear = new List<Collider2D>();
+
+        HideCone();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

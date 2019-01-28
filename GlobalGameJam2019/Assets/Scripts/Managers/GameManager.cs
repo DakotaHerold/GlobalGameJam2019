@@ -238,6 +238,11 @@ namespace Jam
             audioManager.PlayWriteSound(); 
         }
 
+        public AudioManager GetAudioManager()
+        {
+            return audioManager;
+        }
+
         public void StopScribbleSound()
         {
             audioManager.StopWriteSound(); 

@@ -11,8 +11,9 @@ namespace Jam
 
         public AudioSource fxSource;
         public AudioSource musicSource;
-        [Space(5)]
-        public AudioClip[] writingSFX; 
+        [Header("AUDIO CLIPS")]
+        public AudioClip[] writingSFX;
+        public AudioClip flashlightSound; 
 
         // Start is called before the first frame update
         void Start()
@@ -35,6 +36,18 @@ namespace Jam
             {
                 AudioClip clip = writingSFX[Random.Range(0, writingSFX.Length)];
                 if(clip != null)
+                    fxSource.PlayOneShot(clip);
+            }
+        }
+
+        public void PlayFlashlightSFX()
+        {
+            if (fxSource.isPlaying)
+                return;
+            else
+            {
+                AudioClip clip = flashlightSound;
+                if (clip != null)
                     fxSource.PlayOneShot(clip);
             }
         }
